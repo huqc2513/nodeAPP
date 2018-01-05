@@ -1,0 +1,32 @@
+<div>
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="./css/login/reg.css" />
+ 	<div class="bg-pic1"></div>
+ 	<div class="bg-pic2"></div>
+ 	<div class="bg-pic3"></div>
+ 	<div class="bg-pic4"></div>
+      <div class="page-container">
+            <h1>注册</h1>
+            <form action="" method="post">
+              <div><span>手机号</span> <input type="text" v-model="model.cellNumber" name="cellNumber" class="cellNumber" placeholder="输入手机号"  ></div>
+               <div><span>用户名</span> <input type="text" v-model="model.username" name="username" class="username" placeholder="输入用户名"></div>
+               <div><span>密码</span> <input type="text" v-model="model.pwd" name="pwd" class="pwd" placeholder="输入密码"></div>
+               <div><span>身份证</span> <input type="text" v-model="model.idNum" name="idNum" class="idNum" placeholder="输入身份证"></div>
+              <div><span>门店名</span> <input type="text" v-model="model.storeName" name="storeName" class="storeName" placeholder="输入门店名"></div>
+               
+                <button type="submit" class="submit_button" v-on:click.prevent="onSubmit">完成注册</button>
+<!--                 <div class="error"><span>+</span></div> -->
+				<div class="lab-div"><a>找回密码?</a><a>|</a><a v-on:click.prevent="toLogin">登录</a></div>
+            </form>
+           <!--  <div class="connect">
+                <p></p>
+                <p>
+                    <a class="facebook" href=""></a>
+                    <a class="twitter" href=""></a>
+                    <a class="ali" href=""></a>
+                </p>
+            </div> -->
+        </div>
+     
+     
+</div>

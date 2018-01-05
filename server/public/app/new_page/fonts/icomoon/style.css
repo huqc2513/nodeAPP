@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../icomoon.eot?90gbne');
+  src:  url('../icomoon.eot?90gbne#iefix') format('embedded-opentype'),
+    url('../icomoon.ttf?90gbne') format('truetype'),
+    url('../icomoon.woff?90gbne') format('woff'),
+    url('../icomoon.svg?90gbne#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+    content: "\e900";
+}
+.icon-arrow-left:before {
+    content: "\e901";
+}
+.icon-auth-code:before {
+    content: "\e902";
+}
+.icon-can-see-pass:before {
+    content: "\e903";
+}
+.icon-cant-see-pass:before {
+    content: "\e904";
+}
+.icon-contact:before {
+    content: "\e905";
+}
+.icon-delete:before {
+    content: "\e906";
+}
+.icon-down-arrow:before {
+    content: "\e907";
+}
+.icon-down-arrow1:before {
+    content: "\e908";
+}
+.icon-error:before {
+    content: "\e909";
+}
+.icon-help:before {
+    content: "\e90a";
+}
+.icon-help2:before {
+    content: "\e90b";
+}
+.icon-home:before {
+    content: "\e90c";
+}
+.icon-id-card:before {
+    content: "\e90d";
+}
+.icon-notice:before {
+    content: "\e90e";
+}
+.icon-password:before {
+    content: "\e90f";
+}
+.icon-password1:before {
+    content: "\e910";
+}
+.icon-success:before {
+    content: "\e911";
+}
+.icon-success1:before {
+    content: "\e912";
+}
+.icon-suggest:before {
+    content: "\e913";
+}
+.icon-uncselect:before {
+    content: "\e914";
+}
+.icon-up-arrow:before {
+    content: "\e915";
+}
+.icon-upload:before {
+    content: "\e916";
+}
+.icon-upload-img:before {
+    content: "\e917";
+}
+.icon-user-name:before {
+    content: "\e918";
+}
+

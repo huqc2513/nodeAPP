@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../global.css">
+    <!--<link rel="stylesheet" href="../reset.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <!--<link rel="stylesheet" href="../style.css">-->
+
+    <script src="../jquery/jquery-1.8.2.min.js"></script>
+
+    <!-- 公用的字体图标库-->
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+    <!--<!-字体图标&ndash;&gt;-->
+    <link rel="stylesheet" href="../fonts/icon/iconfont.css">
+
+    <!--产品列表-->
+    <link rel="stylesheet" href="MyOrder.css">
+
+    <!--头部-->
+    <link rel="stylesheet" href="../component/style/common-header.css">
+
+
+</head>
+<body>
+
+<div id="header" class="clearfix">
+    <script>
+        $('#header').load('../component/common-header/common-header.html',function () {
+            $('.titile').text('我 的 订 单');
+
+        });
+    </script>
+</div>
+
+<!--主容器-->
+<div class="main-content">
+    <div class="item-list">
+
+    </div>
+</div>
+
+    <div class="check-all">
+        <div class="circle-foot border-radius-all" id="all"></div>
+        <span id="refresh" style="float: left;margin-left: 70px;color: #a2a2a2;font-size: 14px">数量：0</span>
+        <span class="deleteall" id="delete-all">删除</span>
+    </div>
+
+<script>
+    //获取用户id
+    let id =  JSON.parse(sessionStorage.getItem('user')).id;
+    function getList(){
+        $.ajax({
+            type: "get",
+            url: "/orderList?id=" + id,
+            dataType: 'json',
+            success: function (data) {
+                if(data.code==-1){
+                    alert('您没有登陆');
+                    location.href = '../login/login.html';
+                }else{
+                    let item = data.order_list;
+                    console.log(item);
+                    let html = '';
+                    let type ={
+                        A:'已送达',
+                        b:'配送中'
+                    }
+                    for(let i=0;i<item.length;i++){
+                            let str = '';
+                            item[0][i].list.forEach(function (k) {
+                                str+=`
+                                 <div class="item">
+                                    <div class="goods-img">
+                                        <img src="${k.imgSrc}" alt="">
+                                    </div>
+
+                                    <div class="product-info">
+                                        <h3 class="product-title">${k.name}</h3>
+                                        <p class="product-introduction"> 段位：
+                                            <span>${k.grading}</span>
+                                        </p>
+                                    <div class="clearfix">
+                                        <span class="price">￥${k.price}</span>
+
+                                        <div class="calc">
+                                            <span class="num">X${k.count}</span>
+                                        </div>
+
+                                    </div>
+
+                                    </div>
+                                </div>
+
+
+                                `
+                            });
+
+                        html +=`
+
+                         <div  class="item-wrap" id="${item[0][i].id}">
+
+                                <div class="check">
+                                <div class="circle border-radius"></div>
+                                <span style="float: left;margin-left: 70px;font-size: 12px;font-weight: bold">订单总价：${item[0][i].total_price}</span>
+                                <span class="status">${item[0][i].status}</span>
+                                </div>
+                                ${str}
+                            </div>
+
+                            `;
+
+                    }
+                    $('.item-list').html(html);
+
+                }
+            }
+        })
+
+
+    }
+    getList();
+
+    let count = 0;
+    //勾选
+    $('body').on('click','.check',function () {
+
+        if(!$(this).find('.circle').hasClass('succeed')){
+//            if( count>=1) {
+                count++;
+//            }
+            $(this).find('.circle').toggleClass('succeed');
+            $(this).find('.circle').removeClass('border-radius');
+            refresh();
+        }else{
+            if( count>=1) {
+                count--;
+            }
+            $(this).find('.circle').removeClass('succeed');
+            $(this).find('.circle').addClass('border-radius');
+            refresh();
+        }
+
+    });
+
+    //全选
+    $('#all').click(function () {
+
+        if($(this).hasClass('succeed')){
+            countAll();
+            $(this).removeClass('succeed').addClass('border-radius-all');
+
+        }else{
+            ancountAll();
+            $(this).addClass('succeed').removeClass('border-radius-all');
+        }
+    });
+        //删除
+        deleteall();
+       function deleteall() {
+           $('.deleteall').click(function () {
+
+               let list = $('.item-wrap');
+                let arr =[];
+               for(let i=0;i<list.length;i++){
+                   if($(list[i]).find('.circle').hasClass('succeed')){
+                        arr.push($(list[i]).attr('id'));
+                       $(list[i]).remove();
+                   }
+               }
+               alert(arr);
+                   $.ajax({
+                           type: "post",
+                           url: "/orderList/del",
+                           data:{id:arr},
+                           dataType: 'json',
+                           success: function (data) {
+
+                           }
+                       })
+                   });
+       }
+        //全选
+        function  ancountAll() {
+            let list = $('.item-wrap');
+            count = list.length;
+            for(let i=0;i<list.length;i++){
+                if($(list[i]).find('.circle').hasClass('succeed')){
+
+                }else {
+                    $(list[i]).find('.circle').removeClass('border-radius').addClass('succeed');
+                }
+            }
+            refresh();
+        }
+        //反选
+        function countAll() {
+            count = 0;
+        let list = $('.item-wrap');
+        for(let i=0;i<list.length;i++){
+            if($(list[i]).find('.circle').hasClass('succeed')){
+                $(list[i]).find('.circle').removeClass('succeed').addClass('border-radius');
+            }else {
+
+            }
+
+        }
+            refresh();
+    }
+    
+    function refresh() {
+        $('#refresh').html('数量:'+count);
+    }
+    
+    $('body').on('click','.icon-back',function () {
+        location.href = '../personal-center/personal-center.html';
+    });
+
+
+</script>
+
+</body>
+</html>

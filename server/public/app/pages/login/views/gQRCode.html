@@ -1,0 +1,46 @@
+<div>
+	<link rel="stylesheet" type="text/css" href="./css/login/gQRCode.css" />
+	<div class="page-container">
+
+		<div class="page-top">
+			<div class="c-left"><img class="return-img" src="../../images/loginbgpic/return.png" /></div>
+			<div><span>扫码收款</span></div>
+			<div class="c-right"><a>扫码收款</a></div>
+		</div>
+		<img class="qr-code " src="../../images/loginbgpic/grcode.png" />
+
+		<form v-form name="myform">
+			<div>
+				<span>金额</span><input type="text" v-model="model.sum" name="sum" class="sum" placeholder="输入金额"
+				
+                error-message="请输入正确的金额"  v-form-ctrl required class="form-text input-text" pattern="^[1-9]+(\.[0-9]*)" on-blurs="blurCheck">
+			</div>
+			<div>
+				<span>币种</span> <select v-model="model.currencyType">
+					<option value="CNY" selected="selected">人民币（CNY）</option>
+					<option value="SGD">新加坡元（SGD）</option>	
+					<option value="USD">美元（USD）</option>
+				</select>
+			</div>
+
+			<div>
+				<span>兑换币种</span> <select v-model="model.targetCurrencyType"
+					name="targetCurrencyType">
+					<option value="USD" selected="selected">美元（USD）</option>
+					<option value="CNY">人民币（CNY）</option>
+					<option value="SGD">新加坡元（SGD）</option>
+				</select>
+			</div>
+			<div>
+				<span>结果</span><input type="text" readonly="readonly" v-model="model.comResult"
+					name="comResult" class="comResult" placeholder="结果">
+			</div>
+			<div>
+				<button type="submit" class="submit_button" v-on:click.prevent="toExchange">生成二维码</button>
+			</div>
+		</form>
+
+	</div>
+
+
+</div>

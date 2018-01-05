@@ -1,0 +1,41 @@
+<div class="ecf-front-content">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="./css/login/style.css" />
+
+    <div class="login-bg">
+
+    </div>
+    <div class="login-page-wrap mt40">
+        <div class="form-wrap " id="loginForm">
+            <form v-form name="myform" @submit.prevent="onSubmit">
+                <div class="form-group" v-input-delete>
+                    <label class="form-label"><i class="u-icon icon-user-name">&nbsp;</i></label>
+                    <input type="text" v-model="model.userName" name="userName" placeholder="请输入您的用户名"
+                           v-form-ctrl required class="form-text input-text">
+                    <span class="icons-wrap">
+                        <i class="u-icon icon-delete">&nbsp;</i>
+                    </span>
+                </div>
+                <div class="form-group password-wrap mt15" v-input-delete>
+                    <label class="form-label"><i class="u-icon icon-password">&nbsp;</i></label>
+                    <input type="text" v-model="model.psw" name="psw" v-form-ctrl required placeholder="请输入8-16位密码" class="form-text input-text password" >
+                    <span class="icons-wrap">
+                        <i class="u-icon icon-delete">&nbsp;</i>
+                        <i class="u-icon see-pass icon-can-see-pass" v-on:click="shPassword($event)">&nbsp;</i>
+                    </span>
+                </div>
+                <div class="form-group mt15">
+                    <label class="form-label"><i class="u-icon icon-auth-code">&nbsp;</i></label>
+                    <input type="text" v-model="model.graphCode" name="graphCode" v-form-ctrl required placeholder="请输入验证码"
+                           error-message="请输入验证码" class="form-text">
+                    <span class="icons-wrap">
+                        <span class="btn-default verificationCode graphValidateCode" v-on:click="getGraphCode"><img v-bind:src="src" alt=""></span>
+                    </span>
+                </div>
+                <div class="form-group button-group mt60">
+                    <button v-bind:class="{'disabled': !myform.$valid}" class="btn-default hide " type="submit">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

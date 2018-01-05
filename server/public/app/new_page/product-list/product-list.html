@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../global.css">
+    <!--<link rel="stylesheet" href="../reset.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <!--<link rel="stylesheet" href="../style.css">-->
+
+    <script src="../jquery/jquery-1.8.2.min.js"></script>
+
+    <!-- 公用的字体图标库-->
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+    <!--<!-字体图标&ndash;&gt;-->
+    <link rel="stylesheet" href="../fonts/icon/iconfont.css">
+
+    <!--产品列表-->
+    <link rel="stylesheet" href="../product-list/product-list.css">
+
+    <!--头部-->
+    <link rel="stylesheet" href="../component/style/p-header.css">
+    <!--底部-->
+    <link rel="stylesheet" href="../component/style/footer.css">
+
+</head>
+<body>
+
+<div id="header" class="clearfix">
+    <script>
+        $('#header').load('..//component/p-header/p-header.html',function () {
+            $('.titile').text('分类');
+        });
+    </script>
+</div>
+
+<!--主容器-->
+<div class="main-content">
+
+    <div class="banner">
+
+    </div>
+
+    <div class="nav">
+        <div class="active">
+            <span class="active">综合排序</span>
+            <i class="sj"></i>
+        </div>
+        <div>
+            <span>销量优先</span>
+            <i></i>
+        </div>
+        <div>
+            <span>筛选</span>
+            <i></i>
+        </div>
+    </div>
+
+    <div class="product-list">
+            <div class="item">
+                <div class="img-box">
+                    <img src="img/product.png" alt="">
+                </div>
+                <p class="product-title">
+                    meadjson美赞臣婴儿儿A++ 配方奶粉
+                </p>
+                <div class="wrap-price">
+                    <span class="price">￥169</span>
+                    <span class="area">美国</span>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="img-box">
+                    <img src="img/product.png" alt="">
+                </div>
+                <p class="product-title">
+                    meadjson美赞臣婴儿儿A++ 配方奶粉
+                </p>
+                <div class="wrap-price">
+                    <span class="price">￥169</span>
+                    <span class="area">美国</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="img-box">
+                    <img src="img/product.png" alt="">
+                </div>
+                <p class="product-title">
+                    meadjson美赞臣婴儿儿A++ 配方奶粉
+                </p>
+                <div class="wrap-price">
+                    <span class="price">￥169</span>
+                    <span class="area">美国</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="img-box">
+                    <img src="img/product.png" alt="">
+                </div>
+                <p class="product-title">
+                    meadjson美赞臣婴儿儿A++ 配方奶粉
+                </p>
+                <div class="wrap-price">
+                    <span class="price">￥169</span>
+                    <span class="area">美国</span>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div id="footer" class="clearfix">
+    <script>
+        $('#footer').load('..//component/footer/footer.html',function () {
+            $('.icon-fenlei').css('color','#eb6100');
+
+        })
+    </script>
+</div>
+
+</body>
+</html>

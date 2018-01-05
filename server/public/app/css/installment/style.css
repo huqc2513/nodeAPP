@@ -1,0 +1,472 @@
+html,
+body{
+	width: 100%;
+    height: 100%;
+	color:#9a9a9a;
+	font-family: "微软雅黑";
+}
+.header{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 3.6rem;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 0 2.1rem;
+	background-color: #fff;
+	z-index: 10;
+}
+.header ul{
+	width: 100%;
+	height: 100%;
+}
+.header li{
+	position: relative;
+	width: 50%;
+	height: 100%;
+	text-align: center;
+	line-height: 3.6rem;
+}
+.header li i{
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	display: inline-block;
+	width: 8rem;
+	margin-left:-4rem;
+	height: 0.2rem;
+	background-color: transparent;
+}
+.header li.active i{
+    background-color: #00bceb;
+}
+.ecf-front-content-wrap{
+    height: 100%;
+    overflow: hidden;
+}
+.installment-wrap{
+    height: 100%;
+    overflow: hidden;
+    padding-top: 3.6rem;
+}
+.padding-bot49{
+    padding-bottom: 4.9rem;
+}
+.swiper-slide{
+    width: 100%;
+	height:auto;
+    overflow-y: scroll;
+}
+.installment-list,
+.swiper-container{
+    height: 100%;
+    overflow: hidden;
+}
+.item-details{
+	overflow: hidden;
+	padding: 0 1.2rem;
+	height: 6.5rem;
+	border-bottom: 1px solid #e8e8e8;
+}
+.item-details:first-child{
+	border-top: 1px solid #e8e8e8;
+}
+.warm-tips{
+    height:4.9rem;
+    font-size:1.3rem;
+    line-height:1.6rem;
+    color: #000;
+    opacity: .5;
+    padding:0 1.2rem;
+    background-color: #fafafa;
+    padding-top: 0.8rem;
+    text-align: justify;
+}
+.blank{
+    height: 0.8rem;
+    background-color: #fafafa;
+}
+.item-details-left{
+	width: 70%;
+	height: 100%;
+}
+.check-icon{
+	width: 2.5rem;
+	height: 100%;
+	line-height: 6.5rem;
+}
+
+.font16{
+	font-size: 1.6rem!important;
+}
+.font15{
+	font-size: 1.5rem!important;
+}
+.money-remarks h3{
+	height: 1.5rem;
+	font-size: 1rem;
+	margin-top: 1.5rem;
+}
+.money-remarks p{
+	margin-top: 0.8rem;
+	height: 1.4rem;
+	color :#9a9a9a;
+	font-size: 1rem;
+	line-height: 1rem;
+}
+.money-remarks p>span{
+	height: 100%;
+	padding: 0 0.3rem;
+	text-align: center;
+	border: 1px solid #d7d7d7;
+	border-radius: 3px;
+}
+.item-details-right{
+	position: relative;
+	width: 30%;
+	height: 100%;
+	line-height: 6.5rem;
+	text-align: right;
+}
+.item-details-right span{
+	padding-right: 1.2rem;
+}
+.item-details-right i{
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 2.7rem;
+	color:#d8d8d8;
+}
+.footer{
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 4.9rem;
+	border-top: 1px solid #e8e8e8;
+	background-color: #fff;
+    z-index: 10;
+}
+.footer i{
+    display: block;
+    position: absolute;
+    left: 1.2rem;
+    top: 1.7rem;
+}
+.footer p{
+	height: 100%;
+	padding-left: 3.6rem;
+	line-height: 4.9rem;
+	font-size: 1.2rem;
+	color: #545454;
+}
+.button-repayment{
+	border: none;
+	outline: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 11.5rem;
+	height: 4.9rem;
+	background-color: #00bceb;
+	color:#fff;
+	font-size: 1.6rem;
+}
+.button-repayment.disabled{
+    background-color: #e4e4e4;
+}
+.notice-red-color{
+	color:#ff6a8a;
+}
+.light-black-color{
+	color: #333;
+}
+.light-white-color{
+	color: #e8e8e8;
+}
+#app{
+	width: 100%;
+	height: 100%;
+}
+/*installmentDetails.html*/
+.installment-details-wrap{
+	width: 100%;
+	height: 100%;
+}
+.borrow-balance{
+	overflow: hidden;
+	height: auto;
+	padding: 0 1.1rem;
+	border-bottom: 1px solid #e8e8e8;
+	padding-bottom: 1.2rem;
+	margin-bottom: 0.8rem;
+	color: #9a9a9a;
+}
+.borrow-balance header{
+	height: 4.7rem;
+	line-height: 4.7rem;
+	padding-left: 0.2rem;
+	border-bottom: 1px dashed #e8e8e8;
+}
+.borrow-balance header>span{
+	font-weight: 700;
+}
+.borrow-balance-details{
+	height: 0;
+	overflow: hidden;		
+}
+.borrow-balance-details li:first-child{
+	margin-top: 1rem;
+}
+.borrow-balance-details li:last-child{
+	margin-bottom: 1rem;
+}
+.spread{
+	-webkit-animation: spread 0.3s ease-in forwards;
+	border-bottom: 1px dashed #e8e8e8;
+}
+.close-up{
+	-webkit-animation: closeUp 0.3s ease-in forwards;
+	border-bottom: none;
+}
+@-webkit-keyframes spread{
+    from{
+    	height: 0;
+    }
+    to{
+        height: 14rem;
+   }
+}   
+@-webkit-keyframes closeUp{
+    from{
+    	height: 14rem;
+    }
+    to{
+        height: 0;
+   }
+}
+
+.borrow-balance-details li{
+	height: 2.4rem;
+	line-height: 2.4rem;		
+}
+.borrow-balance-details li a{
+	text-decoration: underline;
+	color: #00bceb;
+}
+.summary{
+	position: relative;
+	height: 4rem;
+	line-height: 4rem;
+	text-align: center;
+	color: #545454;
+}
+.summary i{
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	color: #9a9a9a;
+}
+.repayment-schedule{
+	width: 100%;
+	padding-bottom: 4.9rem;
+	overflow: hidden;
+}
+.repayment-schedule-title{
+	border-top: 1px solid #e8e8e8;
+	height: 3.6rem;
+	line-height: 3.6rem;
+	text-align: center;
+	color: #00bceb;
+	font-size: 1.4rem;
+	font-weight: 600;
+	
+}
+.repayment-schedule-items{
+	width:100%;
+	border-top: 1px solid #e8e8e8;
+}
+.repayment-schedule-items thead tr{
+	height: 3.6rem;
+	border-bottom: 1px solid #e8e8e8;
+}
+.repayment-schedule-items thead th{
+	text-align: center;
+}
+.repayment-schedule-items thead th:last-child{
+	text-align: right;
+	padding-right: 2.9rem;
+}
+.repayment-schedule-items thead th:nth-child(2){
+	text-align: right;
+}
+.repayment-schedule-items tbody{
+	padding-left: 1.2rem;
+}
+.repayment-schedule-items tbody tr{
+	
+}
+.repayment-schedule-items tbody td{
+	text-align: right;
+	height: 3.6rem;
+	border-bottom: 1px solid #e8e8e8;
+}
+.repayment-schedule-items tbody td:first-child{
+	text-align: left;
+	padding-left: 1.2rem;
+}
+.repayment-schedule-items tbody td:first-child>i{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 0.8rem;
+}
+.repayment-schedule-items tbody td:first-child>span{
+	color: #00bceb;
+	display: inline-block;
+	vertical-align: middle;
+	height: 1.4rem;
+	text-align: center;
+	line-height: 1.4rem;
+	padding: 0 0.3rem;
+	border: 1px solid #d7d7d7;
+	border-radius: 3px;
+	color: #9a9a9a;
+}
+.repayment-schedule-items tbody td:last-child{
+	padding-right: 1.2rem;
+	text-align: right;
+}
+.item-periods{
+	width: 9rem;
+	height: 100%;
+	line-height: 4.4rem;
+}
+.item-periods i{
+	font-size: 1.6rem;
+	margin-right: 0.8rem;
+}
+.item-periods span{
+	display: inline-block;
+	height: 1.4rem;
+	text-align: center;
+	line-height: 1.4rem;
+	padding: 0 0.3rem;
+	border: 1px solid #d7d7d7;
+	border-radius: 3px;
+	color: #9a9a9a;
+}
+.item-amount{
+	padding-right: 1.2rem;
+	height: 100%;
+	line-height: 4.4rem;
+}
+.item-amount i{
+	font-size: 1.3rem;
+	color: #e8e8e8;
+	margin-left: 0.4rem;
+}
+.item-amount b{
+	font-weight: normal;
+	font-size: 1.5rem;
+	color: #ff6a8a;
+}
+
+.icon-success{
+	color: #00bceb;
+}
+
+/*setPayPassword页面*/
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #cdcdcd;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #cdcdcd;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #cdcdcd;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #cdcdcd;
+}
+.set-password-title{
+	height: 3.6rem;
+	line-height: 4.4rem;
+	color: #979797;
+	padding-left: 1.2rem;
+}
+.form-wrap{
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    padding-left: 1.2rem;
+    background: #fff;
+}
+.form-group{
+    position: relative;
+    border-bottom: 1px solid #e8e8e8;
+}
+.form-group:nth-last-child(1){
+    border: none;
+}
+.form-text{
+    height: 4.4rem;
+    font-size: 1.4rem;
+    color: #000;
+    border: 0 none;
+    background: transparent;
+}
+.buttons-wrap{
+    margin: 2.8rem 1.2rem;
+}
+/*弹出的消息框样式*/
+
+.modal-header .title{
+	width: 100%;
+	height:4.4rem;
+	border-bottom: 1px solid #e8e8e8;
+	text-align: center;
+	line-height: 4.4rem;
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: #000;
+}
+.message-dialog .change-pd{
+	padding: 0;
+}
+.message-dialog ul{
+	padding: 0.5rem 2rem;
+	text-align: left;
+	color: #000;
+}
+.modal-body{
+	color: #000;
+}
+.message-dialog ul li{
+	height: 2.4rem;
+	line-height: 2.4rem;
+	font-size: 1.3rem;
+}
+.message-dialog ul li span{
+	float: right;
+}
+.modal-wrap .modal-footer .btn-primary{
+	color: #000;
+}
+.buttons{
+    padding: 0 1.2rem;
+}
+.repayment-page-wrap .repayment{
+    padding: 12rem 0 3rem 6rem;
+}
+.repayment-page-wrap .repayment h3{
+    font-size: 1.8rem;
+    color: #00bceb;
+    padding-bottom: 1rem;
+}
+.repayment-page-wrap .repayment p {
+    font-size: 1.4rem;
+}

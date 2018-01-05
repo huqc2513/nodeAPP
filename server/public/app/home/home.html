@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../global.css">
+    <!--<link rel="stylesheet" href="../reset.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <!--<link rel="stylesheet" href="../style.css">-->
+
+    <script src="../jquery/jquery-1.8.2.min.js"></script>
+
+    <!-- 公用的字体图标库-->
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+    <!--<!-字体图标&ndash;&gt;-->
+    <link rel="stylesheet" href="../fonts/icon/iconfont.css">
+
+    <link rel="stylesheet" href="../component/search/search.css">
+
+
+    <!--引入mui框架-->
+    <link rel="stylesheet" href="../mui/css/mui.min.css">
+
+    <!--<script src="../jquery/jquery-1.8.2.min.js"></script>-->
+
+    <script src="../mui/js/mui.min.js"></script>
+
+
+    <!--产品列表-->
+    <link rel="stylesheet" href="home.css">
+
+    <!--头部-->
+    <link rel="stylesheet" href="../component/style/header.css">
+
+    <!--底部-->
+    <link rel="stylesheet" href="../component/style/footer.css">
+
+    <!--数据-->
+    <link rel="stylesheet" href="../component/product-list/product-list.css">
+
+</head>
+<body id="bodys">
+<div class="search-wrap-box clearfix">
+    <div class="shade-box">
+    </div>
+    <div class="main-box">
+
+        <!--搜索框-->
+        <div class="header">
+            <input type="text" placeholder="搜索品牌、类别" class="search-box font-color" id='search-box'autocomplete="off">
+
+            <span class="iconfont icon-fangdajing fdj-icon " id='search'></span>      <!--搜索按钮-->
+        </div>
+
+        <!--热门搜索-->
+        <div class="hot-search">
+            <h3 class="font-color">
+                热门搜索
+            </h3>
+            <ul class="clearfix" style="padding: 10px 0">
+                <li><a href="#">德运奶粉</a></li>
+                <li><a href="#">德运</a></li>
+                <li><a href="#">火鸡面</a></li>
+                <li><a href="#">德dsf运</a></li>
+                <li><a href="#">德运sdf</a></li>
+
+            </ul>
+        </div>
+        <!--历史搜索-->
+        <div class="search-record">
+            <h3 class="font-color">
+                历史搜索
+                <span class="clear">清除历史</span>
+            </h3>
+            <span class="line"></span>
+            <ul class="record-wrap">
+                <li>
+                    <a href="#">洗面奶</a>
+                    <span class="delete"></span>
+                </li>
+                <li>
+                    <a href="#">洗面奶</a>
+                    <span class="delete"></span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="header" class="clearfix">
+    <script>
+        $('#header').load('../component/msg-header/msg-header.html',function () {
+            $('.titile').text('海归淘');
+        });
+    </script>
+</div>
+
+<!--主容器-->
+<div class="main-content">
+   <div class="swiper" >
+
+       <div id="slider" class="mui-slider" >
+           <!--<div class="mui-slider-group mui-slider-loop">-->
+               <!--&lt;!&ndash; 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) &ndash;&gt;-->
+               <!--<div class="mui-slider-item mui-slider-item-duplicate">-->
+                   <!--<a href="#">-->
+                       <!--<img src="img/banner1_02.png">-->
+                   <!--</a>-->
+               <!--</div>-->
+
+               <!--&lt;!&ndash; 第一张 &ndash;&gt;-->
+               <!--<div class="mui-slider-item">-->
+                   <!--<a href="#">-->
+                       <!--<img src="img/banner1_02.png">-->
+                   <!--</a>-->
+               <!--</div>-->
+               <!--&lt;!&ndash; 第二张 &ndash;&gt;-->
+               <!--<div class="mui-slider-item">-->
+                   <!--<a href="#">-->
+                       <!--<img src="img/banner1_02.png">-->
+                   <!--</a>-->
+               <!--</div>-->
+               <!--&lt;!&ndash; 第三张 &ndash;&gt;-->
+               <!--<div class="mui-slider-item">-->
+                   <!--<a href="#">-->
+                       <!--<img src="img/banner1_02.png">-->
+                   <!--</a>-->
+               <!--</div>-->
+               <!--&lt;!&ndash; 第四张 &ndash;&gt;-->
+               <!--<div class="mui-slider-item">-->
+                   <!--<a href="#">-->
+                       <!--<img src="img/banner1_02.png">-->
+                   <!--</a>-->
+               <!--</div>-->
+               <!--&lt;!&ndash; 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) &ndash;&gt;-->
+               <!--<div class="mui-slider-item mui-slider-item-duplicate">-->
+                   <!--<a href="#">-->
+                       <!--<img src="img/banner1_02.png">-->
+                   <!--</a>-->
+               <!--</div>-->
+           <!--</div>-->
+
+           <!--<div class="mui-slider-indicator">-->
+               <!--<div class="mui-indicator mui-active"></div>-->
+               <!--<div class="mui-indicator"></div>-->
+               <!--<div class="mui-indicator"></div>-->
+               <!--<div class="mui-indicator"></div>-->
+           <!--</div>-->
+       </div>
+   </div>
+
+    <div class="advertising">
+        <img src="img/banner2.png" alt="">
+    </div>
+
+    <div class="nav-bar">
+        <div class="nav">
+            <p>
+                <b>新品上市</b>
+            </p>
+            <i class="line"></i>
+        </div>
+        <div class="nav">
+            <p class="g-color">
+                <b>热销推荐</b>
+            </p>
+        </div>
+    </div>
+
+    <div id="product-list" class="product-list">
+        <!--<script>-->
+            <!--$('#product-list').load('../component/product-list/product-list.html',function () {-->
+
+
+                <!--$('.icon-zhuye').parent().click(function () {-->
+                    <!--$('.icon-zhuye').css('color','##87c369');-->
+                    <!--window.location.href = '../home/home.html';-->
+                <!--})-->
+            <!--});-->
+        <!--</script>-->
+    </div>
+
+    <div id="footer" class="clearfix">
+        <script>
+            $('#footer').load('../component/footer/footer.html',function () {
+
+                $('.icon-zhuye').css('color','#eb6100');
+                $('.icon-yonghu').parent().click(function () {
+                    $('.icon-yonghu').css('color','##87c369');
+                    window.location.href = '../personal-center/personal-center.html';
+                });
+
+                $('.icon-fenlei').parent().click(function () {
+                    $('.icon-fenlei').css('color','##87c369');
+                    window.location.href = '../classify/classify.html';
+                });
+
+                $('.icon-gouwuchekong').parent().click(function () {
+                    $('.icon-gouwuchekong').css('color','##87c369');
+                    window.location.href = '../shopping-cart/shopping-cart.html';
+                });
+            })
+        </script>
+    </div>
+
+</div>
+
+
+
+<script>
+
+    mui.init({
+        gestureConfig:{
+            tap: true, //默认为true
+            doubletap: true, //默认为false
+            longtap: true, //默认为false
+            swipe: true, //默认为true
+            drag: true, //默认为true
+            hold:false,//默认为false，不监听
+            release:false//默认为false，不监听
+        }
+    });
+    //左滑删除
+    //左滑删除
+    let self = false;
+    document.getElementById("bodys").addEventListener("swiperight",function(){
+
+
+            $('.main-box').css({
+                animation:' mylast 0.8s',
+                transform:"translateX(0)"
+            });
+            $('.shade-box').show(800);
+            setTimeout(function () {
+                self =true;
+            },800);
+    });
+
+
+    //左滑删除
+    mui("body").on("swipeleft",".search-wrap-box",function () {
+        if(self){
+
+            $('.main-box').css({
+                animation:' myfirst 0.8s',
+                transform:"translateX(-300px)"
+            });
+            $('.shade-box').hide(800);
+
+            setTimeout(function () {
+                self =false;
+            },800);
+        }
+    });
+//关闭
+$('.shade-box').click(function () {
+    if(self){
+        $('.shade-box').hide(800);
+        $('.main-box').css({
+            animation:' myfirst 0.8s',
+            transform:"translateX(-300px)"
+        });
+        self =false;
+    }
+    setTimeout(function () {
+        self =true;
+    },800);
+
+});
+//    点击显示
+    $('body').on('click','.icon-fangdajing ',function () {
+        $('.main-box').css({
+            animation:' mylast 0.8s',
+            transform:"translateX(0)"
+        });
+        $('.shade-box').show(800);
+    });
+
+
+
+    function encodeUnicode(str) {
+        var res = [];
+        for ( var i=0; i<str.length; i++ ) {
+            res[i] = ( "00" + str.charCodeAt(i).toString(16) ).slice(-4);
+        }
+        return "\\u" + res.join("\\u");
+    }
+
+    $('#search').click(function () {
+       let result=  $('#search-box').val();
+        if(result){
+            result = encodeUnicode(result) ;
+            location.href = '../search/product-list.html?result='+result;
+        }else{
+            alert('请输入搜索名称');
+        }
+    });
+
+    $('body').on('click','.delete',function () {
+        $(this).parent().remove();
+    });
+    $('body').on('click','.clear',function () {
+        $('.record-wrap').html('');
+    });
+
+    GetBaner();
+    function GetBaner() {
+        $.ajax({
+            url:'/home/getbanner',
+            type:'get',
+            dataType:'json',
+            success:function (data) {
+                    if(data.code==-1){
+                        alert('您为登陆');
+                        location.href= '../login/login.html'
+                    }else{
+                        let item =  data.list;
+                        let html ='';
+                        let foot_banner = '';
+                        let  heander ='';
+                        let footer = '';
+                       for(let i=0;i<item.length;i++){
+                           heander = `
+                                 <div class="mui-slider-item mui-slider-item-duplicate">
+                                   <a href="#">
+                                    <img src="${item[0].Src}">
+                                   </a>
+                               </div>
+
+                           `;
+
+                           footer =
+                               `
+                               <div class="mui-slider-item mui-slider-item-duplicate">
+                                   <a href="#">
+                                       <img src="${item[item.length-1].Src}">
+                                   </a>
+                               </div>
+                           `
+                           html+= `
+                               <div class="mui-slider-item">
+                                   <a href="#">
+                                        <img src="${item[i].Src}">
+                                   </a>
+                               </div>
+                           `;
+
+                          foot_banner += `
+                              <div class="mui-indicator" name="${item[i].id}"></div>
+                           `;
+                       }
+                        let str =`
+                              <div class="mui-slider-indicator">
+                                ${foot_banner}
+                              </div>
+                           `;
+                        let warp = `
+                           <div class="mui-slider-group mui-slider-loop">
+                                ${heander}
+                                 ${html}
+                                ${footer}
+                            </div>
+                        `;
+
+                        var slider = mui("#slider");
+                        $('#slider').append(warp);
+                        $('#slider').append(str);
+                        mui(".mui-slider").slider({interval: 3000});
+                        let dom = $('.mui-indicator');
+                        $(dom[0]).addClass('mui-active');
+                    }
+            }
+        })
+    }
+    Gethot();
+    function Gethot() {
+        //获取用户id
+        let id =  JSON.parse(sessionStorage.getItem('user')).id;
+
+        $.ajax({
+            url:'/home/getNewGoods?id='+id,
+            type:'get',
+            dataType:'json',
+            success:function (data) {
+                if(data.code==-1){
+                    alert('您没登陆')
+                }else{
+                    let item = data.list;
+                        let html = '';
+                     let str;
+                        for(let i=0;i<item.length;i++){
+                            if(item[i].is_enshrine){
+                             str =   `<div class="sc-icon xixin"></div>` ;
+                            }else{
+                                str = `<div class="sc-icon unxinxin"></div>` ;
+                            }
+
+                            html +=`
+
+                            <div class="item" name="${item[i].id}">
+                                <div class="img-box">
+                                    <img src="${item[i].imgScr}" alt="">
+                                </div>
+                                <p class="product-title">
+                                    ${item[i].name}
+                                </p>
+                                <div class="wrap-price">
+                                    <span class="price"> ${item[i].price}</span>
+                                    <span class="area"> ${item[i].site}</span>
+                                </div>
+                                    ${str}
+                            </div>
+
+                            `
+                        }
+                        $('#product-list').html(html);
+                }
+
+            }
+
+    })
+    }
+    buildDom();
+    function buildDom() {
+        let dom = $('.nav-bar').find('.nav');
+//        for(let i=0;i<dom.length;i++){
+//
+//        }
+    }
+
+    
+</script>
+
+
+
+
+</body>
+</html>

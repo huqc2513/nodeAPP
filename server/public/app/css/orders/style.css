@@ -1,0 +1,605 @@
+body,html{
+    height: 100%;
+    background-color: #fafafa;
+}
+body{
+    color: #000;
+    overflow-y: scroll;
+}
+/*设置placeholder的颜色*/
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #cdcdcd;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #cdcdcd;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #cdcdcd;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #cdcdcd;
+}
+input{
+    appearance:none;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari 和 Chrome */   
+}
+.ordersCenterPage{
+    width: 100%;
+    height: 100%;
+}
+.g-orders-page{
+    color: #000;
+}
+.merchant-active{
+    background: url("/images/limit_bg.png") no-repeat left top;
+    background-size: cover;
+}
+.merchant-state{
+    height: 17rem;
+    color: #fff;
+}
+.merchant-state .approve{
+    position: relative;
+    height: 100%;
+}
+.merchant-state .approve h3{
+    padding-top: 1rem;
+    padding-left: 1.2rem;
+    font-size: 1.4rem;
+}
+.merchant-state .approve .money{
+    margin-top: 2.8rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 4rem;
+}
+.merchant-state .approve .total{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4.4rem;
+    font-size: 1.4rem;
+
+}
+.merchant-state .approve .total .text{
+    position: relative;
+    padding-left: 1.3rem;
+    z-index: 11;
+    line-height: 4.4rem;
+}
+.merchant-state .approve .total .bg{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.4;
+    z-index: 10;
+}
+.merchant-state .approveing{
+    padding-top: 6rem;
+    text-align: center;
+}
+.total-limit{
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: 11;
+}
+.total-limit-in{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    margin: 0.7rem 0 0.5rem 0;
+}
+.total-limit-in:nth-of-type(1){
+    border-right: 1px solid #e8e8e8;
+}
+.total-limit-in p:nth-of-type(1){
+    color: #9a9a9a;
+    font-size: 1rem;
+}
+.total-limit-in p:nth-of-type(2){
+    font-size: 2rem;
+    line-height: 2rem;
+}
+.total-limit-in .disabled{
+    color: #9a9a9a;
+}
+.merchant-list{
+    border-top: 1px solid #e8e8e8;
+    margin-bottom: 0.8rem;
+}
+.merchant-list .item{
+    position: relative;
+    padding-left: 1.2rem;
+    height: 4.4rem;
+    line-height: 4.4rem;
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+}
+.merchant-list .item .link{
+    display: block;
+    font-size: 1.4rem;
+    color: #000;
+    position: relative;
+    padding-left: 2.8rem;
+}
+.bg-icons{
+    width: 2.4rem;
+    height: 2.4rem;
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    background: url(/images/bg-icon-helps.png) 0 0 no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.icon-installment{
+    background-image: url(/images/bg-icon-installment.png);
+}
+.icon-helps{
+    background-image: url(/images/bg-icon-helps.png);
+}
+.icon-orders{
+    background-image: url(/images/bg-icon-orders.png);
+}
+.icon-store{
+    background-image: url(/images/bg-icon-store.png);
+}
+.merchant-list .item .item-num{
+    position: absolute;
+    right: 2.8rem;
+    top: 0;
+    font-size: 1.8rem;
+}
+.merchant-list .icon-arrow-left{
+    position: absolute;
+    right: 1.2rem;
+    top: 1.5rem;
+    font-size: 1.5rem;
+    color: #efefef;
+}
+.limit-tips{
+    font-size: 1.2rem;
+    padding: 1rem  1.2rem;
+}
+.banner{
+    width: 100%;
+    height: 8rem;
+    background: #d5effb;
+}
+.buttons{
+    padding: 0 1.2rem 2rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fff;    
+}
+.buttons .btn-normal{
+    margin-top: 1.2rem;
+}
+.collection-code{
+    background: #fff;
+}
+.collection-title{
+    padding-left: 1.2rem;
+    height: 3.6rem;
+    font-size: 1.3rem;
+    line-height: 3.6rem;
+}
+.collection-title h3{
+    border-bottom: 1px solid #e8e8e8;
+}
+.collection-code .money{
+    padding: 4rem 1.2rem 2rem;
+    position: relative;
+    border-bottom: 1px solid #e8e8e8;
+}
+.collection-code .money p{
+    height: 3rem;
+}
+.collection-code .money .rmb{
+    font-size: 2rem;
+    position: absolute;
+    left: 1.2rem;
+    bottom: 2.1rem;
+}
+.collection-code .money .sum{
+    color: #cdcdcd;
+    font-size: 4rem;
+    position: absolute;
+    left: 2.6rem;
+    bottom: 1.6rem;
+    border: none;
+    color: #000;
+    width: 80%;
+}
+.store-name{
+    padding: 0 1.2rem;
+    color: #9a9a9a;
+    border-bottom: 1px solid #e8e8e8;
+}
+.store-name label,.store-name span{
+    display: inline-block;
+    height: 3.6rem;
+    line-height: 3.6rem;
+}
+.store-name label{
+    width: 30%;
+}
+.store-name span{
+    width: 70%;
+}
+.buttons-wrap{
+    padding: 2.8rem 1.2rem;
+}
+.QR-code-bg{
+    width: 100%;
+    height: 100%;
+    background: #00bceb;
+    position: fixed;
+}
+.QR-code{
+    position: relative;
+    padding: 4rem 2rem 0;
+    /*top: 4rem;
+    left: 2rem;*/
+}
+.QR-content{
+    background: #fff;
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin-bottom: 3rem;
+}
+.QR-content .QR-header{
+    height: 4.4rem;
+    border-bottom: 2px dotted #e8e8e8;
+    padding: 0 1.2rem;
+    line-height: 4.4rem;
+    font-size: 1.4rem;
+    position: relative;
+}
+.QR-header label{
+    display: inline-block;
+    width: 30%;
+}
+.QR-header span{
+    display: inline-block;
+    width: 70%;    
+}
+.QR-header .left-circle,.QR-header .right-circle{
+    width: 1.2rem;
+    height: 1.2rem;
+    background: #00bceb;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 3.8rem;
+}
+.QR-header .left-circle{
+    left: -0.6rem;
+}
+.QR-header .right-circle{
+    right: -0.6rem;
+    left: auto;
+}
+.QR-body{
+    width: 100%;
+    padding: 5.5rem 0;
+}
+.QR-body .picture{
+    width: 19rem;
+    height: 19rem;
+    margin: 0 auto;
+}
+.QR-body .picture img{
+    width: 19rem;
+    height: 19rem;
+}
+.QR-body .picture .picture-in{
+    width: 100%;
+    height: 100%;
+    background: url(/images/qr-code.png) 0 0 no-repeat;
+    background-size: cover;
+}
+.QR-footer{
+    height: 4.4rem;
+    background: #fafafa;
+    line-height: 4.4rem;
+    text-align: center;
+    color: #979797;
+    font-size: 1.2rem;
+}
+.QR-code-logo{
+    text-align: center;
+    height: 2.4rem;
+    position: relative;
+    margin-bottom: 2rem;
+}
+.logo{
+    width: 6.8rem;
+    height: 2.7rem;
+    background: url(/images/QRCode.png) no-repeat 0 0;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+.logo-name{
+    height: 2.4rem;
+    line-height: 2.4rem;
+    display: inline-block;
+    margin-left: 0.5rem;
+    color: #fff;
+}
+.pay{
+    min-height: 24rem;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0 1.2rem;
+}
+.pay-icon{
+    text-align: center;
+    font-size: 6rem;
+    color: #73c85b;
+    padding: 2.4rem 0 0 0;
+}
+.pay-icon .delete{
+    color: #ff5980;
+}
+.pay-icon .text{
+    font-size: 1.5rem;
+    color: #000;
+    padding-bottom: 3.4rem;
+    font-weight: bold;
+    margin-top: 1.2rem;
+}
+.pay-icon p{
+    font-size: 1rem;
+    color: #9a9a9a;
+}
+.pay-list{
+    border-top: 1px solid #e8e8e8;
+    padding-top: 1.7rem;
+    color: #9a9a9a;
+}
+.pay-list ul li{
+    height: 3rem;
+}
+.pay-list ul li span,.pay-list ul li label{
+    width: 50%;
+    display: inline-block;
+}
+.store-information{
+    margin-top: 0.8rem;
+    background: #fff;
+    border-top: 1px solid #e8e8e8;
+}
+.store-information li{
+    padding: 0 1.2rem;
+    line-height: 4.4rem;
+    border-bottom: 1px solid #e8e8e8;
+    font-size: 1.3rem;
+}
+.store-information li label{
+    width: 20%;
+}
+.store-information li span{
+    width: 80%;
+    font-weight: 600;
+}
+.indent{
+    min-height: 24rem;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 1.2rem 1.2rem 0;
+}
+.indent-name{
+    text-align: center;
+}
+.indent-header{
+    margin-bottom: 2rem;
+}
+.indent-header .picture{
+    width: 3.6rem;
+    height: 3.6rem;
+    display: inline-block;
+    border-radius: 50%;
+    background: url(/images/picture72-1.png) no-repeat 0 0;
+    background-size: contain;
+    vertical-align: middle;
+}
+.name{
+    display: inline-block;
+    height: 3.6rem;
+    line-height: 3.6rem;
+    margin-left: 0.5rem;
+    font-size: 1.4rem;
+}
+.indent-name .text{
+    font-size: 3rem;
+    color: #000;
+    padding-bottom: 0.8rem;
+    font-weight: bold;
+}
+.indent-name .tips{
+    font-weight: 600;
+    margin-bottom: 3.2rem;
+}
+.indent-name .phone{
+    margin-bottom: 1.5rem;
+}
+.indent-name .phone label,.indent-name .phone span{
+    text-align: left;
+    width: 50%;
+    display: inline-block;
+}
+.indent-name .phone span{
+    text-align: right;
+}
+.indent-list{
+    border-top: 1px solid #e8e8e8;
+    padding-top: 1.5rem;
+    color: #9a9a9a;
+}
+.indent-list ul li{
+    height: 2.3rem;
+}
+.indent-list ul li span,.indent-list ul li label{
+    width: 50%;
+    display: inline-block;
+}
+#orderCenter{
+    width: 100%;
+    height: 100%;
+}
+.orders-center{
+    width: 100%;
+    height: 100%;
+    padding-top: 12.5rem;
+}
+.orders-center .orders-header{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 11;
+    background: #fff;
+    margin-bottom: 0.8rem;
+}
+#app{
+    width: 100%;
+    height: 100%;
+}
+.orders-center .orders-header ul{
+    border-bottom: 1px solid #e8e8e8;
+}
+.orders-center .orders-header ul li{
+    height: 3.6rem;
+    width: 33%;
+    padding: 0 1.2rem;
+}
+.orders-center .orders-header ul li .link{
+    height: 3.6rem;
+    font-size: 1.4rem;
+    color: #757575;
+    display: block;
+    line-height: 3.6rem;
+    text-align: center;
+}
+.swiper-container{
+    width: 100%;
+    height: 100%;
+}
+.swiper-wrapper{
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+.orders-center .orders-header ul li .current{
+    font-weight: 600;
+    color: #000;
+    border-bottom: 2px solid #00bceb;    
+}
+.orders-form{
+    padding: 1.2rem;
+    border-bottom: 1px solid #e8e8e8;
+    height: 9rem;
+}
+.orders-form .form-groups label,.orders-form .form-groups input,.orders-form .form-groups button{
+    height: 2.8rem;
+}
+.orders-form .form-groups input,
+.orders-form .form-groups .time{
+    border: 1px solid #e8e8e8;
+    background: #fafafa;
+    width: 83%;
+    border-radius: 1.4rem;
+}
+.mb8{
+    margin-bottom: 0.8rem;
+}
+.form-groups .date{
+    width: 83%;
+}
+.orders-form .form-groups label{
+    line-height: 2.8rem;
+    width: 17%;
+    height: 2.8rem;
+    display: block;
+}
+.orders-form .form-groups input{
+    padding-left: 1rem;
+}
+.orders-form .form-groups .time{
+    padding-left: 2.2rem;
+    width: 70%;
+    height: 2.8rem;
+    color: #cdcdcd;
+    line-height: 2.8rem;
+    border-radius: 1.4rem;
+    position: relative;
+}
+.orders-form .form-groups .input-change{
+    color: #000;
+}
+.orders-form .form-groups .btn-primate{
+    padding: 0 1.6rem;
+    line-height: 2.8rem;
+    width: auto;
+    border: none;
+}
+.orders-form .form-groups .pull-down{
+    width: 0;
+    height: 0;
+    display: block;
+    border-color: #e8e8e8 transparent transparent transparent;
+    border-style: solid dashed dashed dashed;
+    border-width: 0.4rem;
+    position: absolute;
+    left: 1rem;
+    top: 1.2rem;
+}
+.orders-groups{
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    background: #fff;
+    padding: 0 1.2rem;
+    margin-top: 0.8rem;
+}
+.orders-title{
+    height: 3.6rem;
+    line-height: 3.6rem;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 1rem;
+}
+.orders-title-name,.orders-title-phone{
+    padding-left: 1rem;
+}
+.text-primate{
+    color: #00bceb;
+}
+.orders-groups .orders-list li{
+    height: 2.4rem;
+}
+.orders-groups .orders-list li .money{
+    font-size: 1.6rem;
+    color: #ff5980;
+    font-weight: bold;
+}
+.modal-wrap .modal-footer .btn-primary{
+    color: #000;
+}

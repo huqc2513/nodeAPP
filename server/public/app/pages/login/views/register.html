@@ -1,0 +1,61 @@
+<div class="ecf-front-content" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="./css/login/style.css" />
+
+    <div class="login-bg">
+
+    </div>
+    <div class="login-page-wrap mt40" id="loginForm">
+        <div class="form-wrap">
+            <form v-form name="myform" @submit.prevent="onSubmit">
+                <div class="form-group" v-input-delete>
+                    <label class="form-label"><i class="u-icon icon-user-name">&nbsp;</i></label>
+                    <input type="text" v-model="model.cellNumber" name="cellNumber" placeholder="eg:+6512345678" error-message="请输入正确的手机号码"
+                           v-form-ctrl required class="form-text input-text" pattern="^\+65\d{8}$" on-blurs="blurCheck" id="mobilePhone">
+                    <span class="icons-wrap">
+                        <i class="u-icon icon-delete">&nbsp;</i>
+                    </span>
+                </div>
+
+               <!-- <div class="form-group sacle-line mt15">
+                    <label class="form-label"><i class="u-icon icon-auth-code">&nbsp;</i></label>
+                    <input type="text" v-model="model.securityCode" name="securityCode" v-form-ctrl required placeholder="请输入4位验证码" error-message="请输入有效验证码" class="form-text" pattern="\d{4}" on-blurs="blurCheck">
+                    <span class="icons-wrap">
+                        <span class="btn-default" v-on:click="getSecurityCode" v-show="get">获取</span>
+                        <span class="btn-default repeat-send" v-show="!get">重新获取<em>({{seconds}}s)</em></span>
+                    </span>
+                </div>-->
+
+                <div class="form-group sacle-line mt15" v-input-delete>
+                    <label class="form-label"><i class="u-icon icon-user-name">&nbsp;</i></label>
+                    <input type="text" v-model="model.userName" name="userName" placeholder="用户名称"
+                           v-form-ctrl required class="form-text input-text">
+                    <span class="icons-wrap">
+                        <i class="u-icon icon-delete">&nbsp;</i>
+                    </span>
+                </div>
+                <div class="form-group sacle-line mt15" v-input-delete>
+                    <label class="form-label"><i class="u-icon icon-user-name">&nbsp;</i></label>
+                    <input type="text" v-model="model.storeName" name="storeName" placeholder="商店名称"
+                           v-form-ctrl required class="form-text input-text">
+                    <span class="icons-wrap">
+                        <i class="u-icon icon-delete">&nbsp;</i>
+                    </span>
+                </div>
+                <div class="form-group password-wrap mt15" v-input-delete>
+                    <label class="form-label"><i class="u-icon icon-password">&nbsp;</i></label>
+                    <input type="password" v-model="model.pwd" name="pwd" v-form-ctrl required placeholder="8-16位的数字与字母组合密码" error-message="8-16位的数字与字母组合密码" class="form-text input-text password"
+                           pattern="(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}" on-blurs="blurCheck">
+                    <span class="icons-wrap">
+                        <i class="u-icon icon-delete">&nbsp;</i>
+                        <i class="u-icon icon-cant-see-pass" v-on:click="shPassword($event)">&nbsp;</i>
+                    </span>
+                </div>
+                <div class="form-group button-group sacle-line mt15">
+                    <button v-bind:class="{'disabled': !(myform.$valid)}" class="btn-default mt12" type="submit">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

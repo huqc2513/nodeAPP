@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../global.css">
+    <!--<link rel="stylesheet" href="../reset.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <!--<link rel="stylesheet" href="../style.css">-->
+
+    <script src="../jquery/jquery-1.8.2.min.js"></script>
+
+
+
+    <!--引入mui-->
+    <script src="../mui/js/mui.min.js"></script>
+
+    <!-- 公用的字体图标库-->
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+    <!-字体图标-->
+    <link rel="stylesheet" href="../fonts/icon/iconfont.css">
+
+    <!--购物车-->
+    <link rel="stylesheet" href="../shopping-cart/shoppng-cart.css">
+
+    <!--头部-->
+    <link rel="stylesheet" href="../component/style/header.css">
+    <!--底部-->
+    <link rel="stylesheet" href="../component/style/footer.css">
+
+
+</head>
+<body>
+
+<div id="header" class="clearfix">
+    <script>
+        $('#header').load('../component/header/header.html',function () {
+            $('.titile').text('购 物 车');
+        });
+    </script>
+</div>
+
+<!--主容器-->
+<div class="main-content">
+
+    <div class="item-list">
+        <!--购物车产品-->
+
+    </div>
+
+
+</div>
+        <div class="total-price-box">
+            <label class="clearfix">
+                <!--多选产品-->
+                <!--<div class="check">-->
+                <div class="circle-all border-radius-all" id="all"></div>
+                <!--</div>-->
+                <b>全选</b>
+            </label>
+                <span class="total-price">
+                    <b>TOTAL:</b>
+                    <b id="totalprice">￥0</b>
+                </span>
+            <div class="shop-btn">
+                立即购买(0)
+            </div>
+</div>
+
+
+<div id="footer" class="clearfix">
+    <script>
+        $('#footer').load('../component/footer/footer.html',function () {
+            $('.icon-gouwuchekong').css('color','#eb6100');
+
+            $('.icon-zhuye').parent().click(function () {
+                $('.icon-zhuye').css('color','##87c369');
+                window.location.href = '../home/home.html';
+            })
+
+            $('.icon-yonghu').parent().click(function () {
+                $('.icon-yonghu').css('color','##87c369');
+                window.location.href = '../personal-center/personal-center.html';
+            });
+
+            $('.icon-fenlei').parent().click(function () {
+                $('.icon-fenlei').css('color','##87c369');
+                window.location.href = '../classify/classify.html';
+            });
+
+            $('.icon-gouwuchekong').parent().click(function () {
+                $('.icon-gouwuchekong').css('color','##87c369');
+                window.location.href = '../shopping-cart/shopping-cart.html';
+            });
+
+            $('.icon-zhuye').parent().click(function () {
+                $('.icon-zhuye').css('color','##87c369');
+//                         window.location.href = '../personal-center/personal-center.html';
+            })
+
+        })
+    </script>
+</div>
+
+<script>
+    //获取用户id
+    let id =  JSON.parse(sessionStorage.getItem('user')).id;
+    function  init() {
+        mui.init({
+            gestureConfig:{
+                tap: true, //默认为true
+                doubletap: true, //默认为false
+                longtap: true, //默认为false
+                swipe: true, //默认为true
+                drag: true, //默认为true
+                hold:false,//默认为false，不监听
+                release:false//默认为false，不监听
+            }
+        });
+        //左滑删除
+        mui("body").on("swipeleft",".item-wrap",function () {
+            $(this).css({
+                animation:' myfirst 0.5s',
+                transform:"translateX(-120px)"
+            });
+            this.addEventListener("swiperight",function () {
+                $(this).css({
+                    animation:' mylast 0.5s',
+                    transform:"translateX(0px)"
+                });
+            });
+        });
+    //删除
+        $('body').on('click','p.delete',function () {
+           let idlist =  $(this).attr('name');
+           let arr=[];
+           arr.push(idlist);
+            $.ajax({
+                type: "post",
+                url: "/shopcart/del",
+                data:{id:arr},
+                dataType:'json',
+                success:function (data) {
+                    if(data.code==1){
+                        getcartList(id);
+                    }
+                }
+            })
+        })
+
+
+    }
+    init();
+
+//获取列表
+    function getcartList(id) {
+        $.ajax({
+            type: "get",
+            url: "/shoplist?id="+id,
+            dataType: 'json',
+            success: function (data) {
+                if(data.code ==1){
+                    let item = data.list;
+                    let html='';
+                    for(let i=0;i<item.length;i++){
+                        html +=`
+                               <div  class="item-wrap">
+                                    <div class="item" id="${item[i].id}">
+                                       <div class="check">
+                                        <div class="circle border-radius "></div>
+                                       </div>
+
+                                       <div class="goods-img">
+                                            <img src="${item[i].imgScr}" alt="">
+                                       </div>
+
+                                    <div class="product-info">
+                                        <h3 class="product-title">${item[i].name}</h3>
+                                   <p class="product-introduction"> 段位：
+                                        <span>青舒3段850g</span>
+                                   </p>
+                                       <div class="clearfix">
+                                           <span class="price">${item[i].price}</span>
+                                           <div class="calc">
+                                               <i class="iconfont icon-jian" name="${item[i].id}"></i>
+                                               <input type="number" class="number" value="${item[i].count}">
+
+                                               <i class=" iconfont icon-jia  name="${item[i].id}"></i>
+                                           </div>
+                                       </div>
+                                   </div>
+                                    </div>
+                                       <div class="deleete-item" >
+                                            <p class="delete" name="${item[i].cardId}">删除</p>
+                                       </div>
+                               </div>
+                           `
+                    }
+                    $('.item-list').html(html);
+                }
+            }
+        });
+    }
+    getcartList(id);
+//添加
+        $('body').on('click','.icon-jian',function () {
+            if($(this).next().val()==1){
+                return
+            }
+            $(this).next().val(parseInt($(this).next().val()) -1) ;
+
+            if($(this).parent().parent().parent().parent().find('.circle').hasClass('succeed')){
+                let price =$(this).parent().parent().parent().find('.price').text();
+                let count =  parseInt($(this).next().val());
+                countPrice('jian',price,count);
+            }
+        });
+        $('body').on('click','.icon-jia',function () {
+            $(this).prev().val(parseInt($(this).prev().val()) +1) ;
+            if($(this).parent().parent().parent().parent().find('.circle').hasClass('succeed')) {
+                let price = $(this).parent().parent().find('.price').text();
+                let count =  parseInt($(this).prev().val());
+                countPrice('jia', price,count);
+            }
+        });
+//勾选
+        $('body').on('click','.check',function () {
+
+            if(!$(this).find('.circle').hasClass('succeed')){
+                $(this).find('.circle').toggleClass('succeed');
+                $(this).find('.circle').removeClass('border-radius');
+                addPrice(this);
+            }else{
+                $(this).find('.circle').removeClass('succeed');
+                $(this).find('.circle').addClass('border-radius');
+                sbuprice(this);
+            }
+        });
+
+        let Tprice = 0;//总价格
+        let totalcount = 0;//总数量
+//    计算总价格
+    function addPrice(dom){
+            let  price =$(dom).parent().find('.price').text();
+            let count   = parseInt($(dom).parent().find('input').val());
+            totalcount+= count;
+            Tprice += parseInt(count*price);
+        refresh();
+    }
+//    减少总价格
+    function sbuprice (dom) {
+        let  price =$(dom).parent().find('.price').text();
+        let count   = parseInt($(dom).parent().find('input').val());
+        totalcount-= count;
+        if(Tprice==0){
+            return
+        }else{
+            Tprice = Tprice-parseInt(count*price);
+        }
+        refresh();
+
+    }
+
+//    计算价格
+    function countPrice(type,price,count) {
+
+        if(type=='jia'){
+            Tprice+=parseInt(price);
+            totalcount+= 1;
+        }
+        if(type=='jian'){
+            if(Tprice==0){
+                return
+            }
+            totalcount-= 1;
+            Tprice= Tprice -parseInt(price)
+        }
+
+        refresh();
+    }
+
+    //全选
+    $('#all').click(function () {
+
+        if($(this).hasClass('succeed')){
+
+            $(this).removeClass('succeed').addClass('border-radius-all');
+            ancountAll(this);
+         }else{
+
+            $(this).addClass('succeed').removeClass('border-radius-all');
+            countAll(this);
+          }
+    })
+
+//    全选计算总价
+        function countAll(e){
+        let price = 0;
+        let c = 0;
+            let list = $('.item-wrap');
+            for(let i=0;i<list.length;i++){
+                if($(list[i]).find('.circle').hasClass('succeed')){
+
+                }else {
+                    $(list[i]).find('.circle').removeClass('border-radius').addClass('succeed');
+                }
+
+                 let p = parseInt($(list[i]).find('.price').html());
+                 let a = parseInt($(list[i]).find('input').val());
+                    c+=a;
+                  price += p*a;
+            }
+            Tprice = price;
+            totalcount = c;
+            refresh();
+        }
+//全选取消总价
+    function  ancountAll(e){
+        Tprice = 0;
+        totalcount = 0;
+        let list = $('.item-wrap');
+        for(let i=0;i<list.length;i++){
+            if($(list[i]).find('.circle').hasClass('succeed')){
+                $(list[i]).find('.circle').removeClass('succeed').addClass('border-radius');
+            }else {
+
+            }
+
+        }
+        refresh();
+    }
+//刷新总价格
+    function refresh () {
+        $('#totalprice').text('￥'+ Tprice );
+        $('.shop-btn').text('立即购买('+ totalcount+')' );
+    }
+
+//    立即购买
+    $('.shop-btn').click(function () {
+        if(Tprice==0&&totalcount==0){
+            alert('您还没有勾选产品')
+        }else{
+            let arr =[];
+            let list = $('.item');
+            for(let i=0;i<list.length;i++){
+                 if($(list[i]).find('.circle').hasClass('succeed')){
+                   let count =  $(list[i]).find('input[type=number]').val();
+                  let obj  = {
+                      good_id:$(list[i]).attr('id'),
+                      count:count,
+                  };
+                   arr.push(obj);
+                 }
+            }
+            let user_id =  JSON.parse(sessionStorage.getItem('user')).id;
+            let from= {
+                    total_price:Tprice,
+                    user_id:user_id,
+                    goods:arr
+                };
+
+            $.ajax({
+                type: "post",
+                url: "/order/purchase",
+                dataType: 'json',
+                data:{info:from},
+                success: function (data) {
+                        if(data.code==1){
+                            alert('添加成功');
+                            location.href = '../MyOrder/MyOrder.html';
+                        }else if(data/code==-1){
+                            alert('您没登陆');
+                            location.href = '../login/login.html';
+                        }
+                }
+            })
+        }
+
+    })
+
+
+
+</script>
+
+</body>
+</html>

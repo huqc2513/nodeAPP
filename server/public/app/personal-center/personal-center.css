@@ -1,0 +1,46 @@
+#header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+.main-content{
+    height: calc(100% - 50px - 60px);
+    margin-top:50px;
+    overflow: hidden;
+}
+#footer{
+     position: fixed;
+     left: 0;
+     bottom:0;
+     width: 100%;
+}
+.portrait-img{
+    text-align: center;
+}
+.user-name{
+    font-size: 16px;
+    margin: 10px 0;
+    font-family: '宋体';
+    font-weight: bold;
+}
+.portrait-img img{
+    margin-top: 35px;
+    width: 120px;
+    height: 120px;
+}
+.menu{
+    margin-top: 45px;
+    width: 100%;
+}
+.menu li{
+    width: 100%;
+    height: 50px;
+    font-weight: 500;
+    line-height: 50px;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0 30px;
+}
+.menu li:last-child{
+    border-bottom: none;
+}

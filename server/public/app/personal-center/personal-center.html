@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../global.css">
+    <!--<link rel="stylesheet" href="../reset.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <!--<link rel="stylesheet" href="../style.css">-->
+
+    <script src="../jquery/jquery-1.8.2.min.js"></script>
+    <!--<link rel="stylesheet" href="../reset.css">-->
+    <!-- 公用的字体图标库-->
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+    <!--<!-字体图标&ndash;&gt;-->
+    <link rel="stylesheet" href="../fonts/icon/iconfont.css">
+
+    <!--个人中心-->
+    <link rel="stylesheet" href="personal-center.css">
+    <!--头部-->
+    <link rel="stylesheet" href="../component/style/header.css">
+    <!--底部-->
+    <link rel="stylesheet" href="../component/style/footer.css">
+    <style>
+
+        .menu li>a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+     <div id="header" class="clearfix">
+         <script>
+             $('#header').load('../component/header/header.html',function () {
+                    $('.titile').text('个 人 中 心');
+                    $('.icon-back').css({display:'hidden'});
+             })
+         </script>
+     </div>
+    <div class="main-content">
+
+            <div class="portrait-img">
+                <img src="img/user-portrait.png" alt="" class="header_portrait">
+                <p class="user-name">b u b u</p>
+            </div>
+            <ul class="menu">
+                <li>我的账号</li>
+                <li>
+                    <a href="../Myorder/MyOrder.html">我的订单</a>
+                </li>
+                <li>我的收藏</li>
+                <li><a href="../site-administration/site-administration.html">地址管理</a></li>
+                <li>帮助</li>
+            </ul>
+    </div>
+
+     <div id="footer" class="clearfix">
+         <script>
+             $('#footer').load('../component/footer/footer.html',function () {
+                     $('.icon-yonghu').css('color','#eb6100');
+
+
+                 $('.icon-yonghu').parent().click(function () {
+                     $('.icon-yonghu').css('color','##87c369');
+                     window.location.href = '../personal-center/personal-center.html';
+                 });
+
+                 $('.icon-fenlei').parent().click(function () {
+
+                     $('.icon-fenlei').css('color','##87c369');
+                     window.location.href = '../classify/classify.html';
+                 });
+
+                 $('.icon-gouwuchekong').parent().click(function () {
+                     $('.icon-gouwuchekong').css('color','##87c369');
+                     window.location.href = '../shopping-cart/shopping-cart.html';
+                 });
+
+
+                 $('.icon-zhuye').parent().click(function () {
+                     $('.icon-zhuye').css('color','##87c369');
+                     window.location.href = '../home/home.html';
+                 })
+             })
+         </script>
+     </div>
+
+     <script>
+
+        let user =  JSON.parse (sessionStorage.getItem('user'));
+
+        $('.header_portrait').attr('src',user.header_portrait);
+        $('.user-name').text(user.name);
+
+     </script>
+</body>
+</html>

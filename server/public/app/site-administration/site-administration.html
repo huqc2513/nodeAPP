@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="../reset.css">
+    <!--引入mui框架-->
+    <link rel="stylesheet" href="../mui/css/mui.min.css">
+
+    <script src="../jquery/jquery-1.8.2.min.js"></script>
+
+    <script src="../mui/js/mui.min.js"></script>
+
+
+    <!--<!-字体图标&ndash;&gt;-->
+    <link rel="stylesheet" href="../fonts/icon/iconfont.css">
+
+    <!--self-->
+    <link rel="stylesheet" href="site-administration.css">
+
+
+
+</head>
+<body>
+<div>
+    <header class="clearfix">
+        <i class="iconfont  icon-back white back"></i>
+        <p class="titile white">地址管理</p>
+    </header>
+</div>
+<div class="content">
+
+    <div class="item clearfix">
+      <p class="title">家</p>
+
+        <div class="item-left clearfix">
+            <p class="name">bubu</p>
+
+            <p class="site">
+                广东省深圳市福田区财富大厦A冻802
+            </p>
+                <div class="phone">13713662586</div>
+        </div>
+        <div class="item-right clearfix">
+            <span class="active">默认地址</span>
+            <div class="group">
+                <a href="#">编辑</a>
+                <a href="#">删除</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="item clearfix">
+        <p class="title">家</p>
+
+        <div class="item-left clearfix">
+            <p class="name">bubu</p>
+
+            <p class="site">
+                广东省深圳市福田区财富大厦A冻802
+            </p>
+            <div class="phone">13713662586</div>
+        </div>
+        <div class="item-right clearfix">
+            <span class="active unactive">默认地址</span>
+            <div class="group">
+                <a href="#">编辑</a>
+                <a href="#">删除</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="item clearfix">
+        <p class="title">家</p>
+
+        <div class="item-left clearfix">
+            <p class="name">bubu</p>
+
+            <p class="site">
+                广东省深圳市福田区财富大厦A冻802
+            </p>
+            <div class="phone">13713662586</div>
+        </div>
+        <div class="item-right clearfix">
+            <span class="active unactive">默认地址</span>
+            <div class="group">
+                <a href="#">编辑</a>
+                <a href="#">删除</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="item clearfix">
+        <p class="title">家</p>
+
+        <div class="item-left clearfix">
+            <p class="name">bubu</p>
+
+            <p class="site">
+                广东省深圳市福田区财富大厦A冻802
+            </p>
+            <div class="phone">13713662586</div>
+        </div>
+        <div class="item-right clearfix">
+            <span class="active unactive">默认地址</span>
+            <div class="group">
+                <a href="#">编辑</a>
+                <a href="#">删除</a>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+
+
+
+    $('body').on('click','.icon-back',function () {
+        location.href = '../personal-center/personal-center.html';
+    })
+
+
+    function setSite() {
+        //获取用户id
+        let id =  JSON.parse(sessionStorage.getItem('user')).id;
+
+        $.ajax({
+            url :"/address?id="+id,
+            type: "get",
+            dataType: 'json',
+            success: function (data) {
+
+                if(data.code==1){
+                         let list = data.list;
+                         let html = ``;
+                         for(let i =0;i<list.length;i++){
+                             let site ;
+                             if(list[i].is_default=='yes'){
+                                 site =   `<span class="active">默认地址</span>`
+                             }else{
+                                 site = `<span class="unactive"">默认地址</span>`
+                             }
+                            html +=`
+
+                                       <div class="item clearfix" name="${list[i].id}">
+                                          <p class="title">${list[i].remark}</p>
+
+                                            <div class="item-left clearfix">
+                                                <p class="name">${list[i].user_name}</p>
+
+                                                <p class="site">
+                                                   ${list[i].address}
+                                                </p>
+                                                    <div class="phone"> ${list[i].phone}</div>
+                                            </div>
+                                            <div class="item-right clearfix">
+                                                                ${site}
+                                                <div class="group">
+                                                    <a href="#" name="${list[i].id}">编辑</a>
+                                                    <a href="#" name="${list[i].id}">删除</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                            `;
+
+                         }
+                         html  +=`
+                             <div class="row" style="padding: 0 20px">
+                                    <button type="button" class="mui-btn mui-btn-success mui-btn-block">保存</button>
+                                </div>
+                         `;
+                         $('.content').html(html);
+
+                }else{
+                    alert('您没登陆');
+                    location.href = '../login/login.html';
+                }
+
+            }
+        })
+    }
+    setSite();
+</script>
+</body>
+</html>

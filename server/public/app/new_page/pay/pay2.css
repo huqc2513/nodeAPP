@@ -1,0 +1,56 @@
+.main-content{
+    height: calc( 100% - 50px);
+    background: #ffffff;
+}
+.partition{
+    /*margin: 35px 0;*/
+    display: flex;
+    height: 40px;
+    width: 100%;
+    align-items:center;
+    /*line-height: 40px;*/
+    vertical-align: middle;
+    justify-content:center;
+}
+.line{
+    vertical-align: middle;
+    display: inline-block;
+    flex: 1;
+    height: 1px;
+    border-bottom: 1px solid #87c369;
+}
+.main-titile{
+    text-align: center;
+    margin-top: 30px;
+}
+.img-box{
+    text-align: center;
+}
+.img-box img{
+    width: 163px;
+    height: 150px;
+}
+.color-gr{
+    display: inline-block;
+    color: #878787;
+    font-size: 10px;
+    font-family: '宋体';
+    margin-bottom: 30px;
+}
+.color-bl{
+    color:#4c4c4c;
+}
+.black-c{
+  color: #4c4c4c;
+}
+
+.center{
+    text-align: center;
+}
+.yuan{
+    vertical-align: middle;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid #87c369;
+}

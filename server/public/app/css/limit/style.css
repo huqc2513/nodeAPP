@@ -1,0 +1,482 @@
+body,html{
+    height: 100%;
+    background-color: #fafafa;
+}
+body{
+    overflow-y: scroll;
+}
+/*����placeholder����ɫ*/
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #cdcdcd;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #cdcdcd;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #cdcdcd;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #cdcdcd;
+}
+
+.g-limit-page{
+    color: #000;
+}
+.limit-state{
+    height: 17rem;
+    color: #fff;
+}
+.limit-active{
+    background: url("/images/limit_bg.png") no-repeat left top;
+    background-size: cover;
+}
+.limit-unactive{
+    background: url("/images/limit_un_bg.png") no-repeat left top;
+    background-size: cover;
+}
+.limit-state .approve{
+    position: relative;
+    height: 100%;
+}
+.limit-state .approve h3{
+    padding-top: 1rem;
+    padding-left: 1.2rem;
+    font-size: 1.4rem;
+}
+.limit-state .approve .money{
+    margin-top: 2.8rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 4rem;
+}
+.limit-state .approve .total{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4.4rem;
+    font-size: 1.4rem;
+
+}
+.limit-state .approve .total .text{
+    position: relative;
+    padding-left: 1.3rem;
+    z-index: 11;
+    line-height: 4.4rem;
+}
+.limit-state .approve .total .bg{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.4;
+    z-index: 10;
+}
+.limit-state .approveing{
+    padding-top: 6rem;
+    text-align: center;
+}
+.limit-state .approveing .b-text{
+    font-weight: bold;
+    font-size: 2rem;
+}
+.limit-state .approveing .s-text{
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+/*.limit-unactive{
+    padding-top: 3.5rem;
+    text-align: center;
+}*/
+.limit-unactive .icon-error{
+    font-size: 4rem;
+}
+.limit-unactive .b-text{
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+.limit-unactive .s-text{
+    font-size: 1.2rem;
+}
+.buttons{
+    position: absolute;
+    padding: 0 1.2rem;
+    left: 0;
+    bottom: 2rem;
+    width: 100%;
+}
+.stages-list{
+    margin-top: 0.8rem;
+}
+.stages-list .item{
+    position: relative;
+    padding-left: 1.2rem;
+    height: 4.4rem;
+    line-height: 4.4rem;
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
+    margin-bottom: 0.8rem;
+}
+.stages-list .item .link{
+    display: block;
+    font-size: 1.4rem;
+    color: #000;
+    position: relative;
+    padding-left: 2.8rem;
+}
+.bg-icons{
+    width: 2.4rem;
+    height: 2.4rem;
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    background: url(/images/bg-icon-helps.png) 0 0 no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.icon-installment{
+    background-image: url(/images/bg-icon-installment.png);
+}
+.icon-helps{
+    background-image: url(/images/bg-icon-helps.png);
+}
+.stages-list .item .item-num{
+    position: absolute;
+    right: 2.8rem;
+    top: 0;
+    font-size: 1.8rem;
+}
+.stages-list .item .item-num{
+    position: absolute;
+    right: 2.8rem;
+    top: 0;
+    font-size: 1.8rem;
+}
+.stages-list .icon-arrow-left{
+    position: absolute;
+    right: 1.2rem;
+    top: 1.5rem;
+    font-size: 1.5rem;
+    color: #efefef;
+}
+.limit-tips{
+    font-size: 1.2rem;
+    padding: 1rem  1.2rem;
+}
+/*form-list*/
+.form-list{
+    padding: 0 1.3rem;
+    border-bottom: 1px solid #e4e4e4;
+    border-top: 1px solid #e4e4e4;
+    background-color: #fff;
+}
+.form-list .form-groups{
+    position: relative;
+    height: 4.4rem;
+    padding-left: 5rem;
+    line-height: 4.4rem;
+    border-bottom: 1px solid #e4e4e4;
+}
+.form-list .form-groups:last-child{
+    border-bottom: 0 none;
+}
+.form-list .form-groups>label{
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.4rem;
+
+}
+.form-list .form-groups .form-control{
+    width: 100%;
+    border: 0 none;
+    text-align: right;
+   /* line-height: 4.4rem;*/
+    font-size: 1.4rem;
+    /*opacity: 0.5;*/
+}
+.buttons-wrap{
+    padding: 2rem 1.2rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+}
+.verify-code-wrap .tips-wrap{
+    padding: 2.6rem 0;
+    text-align: center;
+}
+.verify-code-wrap .tips-wrap .tips{
+    font-size: 1.2rem;
+    opacity: 0.5;
+
+}
+.verify-code-wrap .tips-wrap .phone{
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+}
+.verify-code-wrap .form-groups{
+    position: relative;
+    height: 4.4rem;
+    line-height: 4.4rem;
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    background-color: #fff;
+}
+.verify-code-wrap .form-groups .form-control{
+    padding-left: 1.2rem;
+    width: 100%;
+    height: 100%;
+    font-size: 1.4rem;
+    border: 0 none;
+}
+.verify-code-wrap .form-groups .btn-primate{
+    position: absolute;
+    right: 1.2rem;
+    top: 0.7rem;
+    padding: 0 1.5rem;
+    width: auto;
+    height: 2.8rem;
+    line-height: 2.8rem;
+    font-size: 1.3rem;
+}
+.verify-code-wrap .form-groups .btn-primate.again{
+    padding: 0;
+    color: #000;
+    opacity: 0.4;
+    background-color: transparent;
+}
+.verify-code-wrap .condition{
+    position: relative;
+    padding: 1.2rem 1.2rem 1.2rem 2.9rem;
+    font-size: 1.3rem;
+    color: #999;
+}
+.verify-code-wrap .condition i{
+    position: absolute;
+    float: left;
+    left: 1.2rem;
+    top: 1.4rem;
+}
+.verify-code-wrap .condition a{
+    color: #00bceb;
+}
+.g-limit-page .buttons-wrap{
+    background-color: #fafafa;
+}
+.icon-success {
+    color: #00bceb;
+}
+.g-bank-page{
+    overflow-y: scroll;
+    height: 100%;
+    background-color: #fafafa;
+}
+.g-bank-page .limit-tips{
+    opacity: 0.5;
+}
+.bank-list{
+    padding: 0 1.2rem;
+}
+.bank-list .bank-item{
+    position: relative;
+    padding-left: 5.6rem;
+    padding-top: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: #fff;
+    background: #00bceb;
+    -webkit-border-radius: 0.8rem 0.8rem 0 0;
+    -moz-border-radius: 0.8rem 0.8rem 0 0;
+    -ms-border-radius: 0.8rem 0.8rem 0 0;
+    border-radius: 0.8rem 0.8rem 0 0;
+}
+.bank-list .bank-item .bank-logo{
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    width: 3.6rem;
+    height: 3.6rem;
+    background-color: #fafafa;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -webkit-border-radius: 1.8rem;
+    -moz-border-radius: 1.8rem;
+    -ms-border-radius: 1.8rem;
+    border-radius: 1.8rem;
+}
+.bank-list .bank-item.ABOCCNBJ,
+.bank-list .bank-item.MSBCCNBJ,
+.bank-list .bank-item.PSBCCNBJSZ{
+    background: url("../../images/bank/green_bg.png") no-repeat left top;
+    background-size: cover;
+}
+.bank-list .bank-item.ICBKCNBJ,
+.bank-list .bank-item.BKCHCNBJ,
+.bank-list .bank-item.GDBKCN22,
+.bank-list .bank-item.CMBCCNBS,
+.bank-list .bank-item.HXBKCNBJ,
+.bank-list .bank-item.CIBKCNBJ{
+    background: url("../../images/bank/red_bg.png") no-repeat left top;
+    background-size: cover;
+}
+.bank-list .bank-item.SZCBCNBS{
+    background: url("../../images/bank/orange_bg.png") no-repeat left top;
+    background-size: cover;
+}
+.bank-list .bank-item.SHUNDENC,
+.bank-list .bank-item.PCBCCNBJ,
+.bank-list .bank-item.SPDBCNSH,
+.bank-list .bank-item.HZCBCN2H,
+.bank-list .bank-item.BOSHCNSH,
+.bank-list .bank-item.COMMCN,
+.bank-list .bank-item.FJIBCNBA{
+    background: url("../../images/bank/blue_bg.png") no-repeat left top;
+    background-size: cover;
+}
+.bank-list .bank-item.EVERCNBJ{
+    background: url("../../images/bank/purple_bg.png") no-repeat left top;
+    background-size: cover;
+}
+.bank-list .bank-item.ICBKCNBJ .bank-logo {
+    background-image: url(../../images/bank/ICBKCNBJ.png);
+}
+.bank-list .bank-item.BKCHCNBJ .bank-logo {
+    background-image: url(../../images/bank/BKCHCNBJ.png);
+}
+.bank-list .bank-item.ABOCCNBJ .bank-logo {
+    background-image: url(../../images/bank/ABOCCNBJ.png);
+}
+.bank-list .bank-item.SHUNDENC .bank-logo {
+    background-image: url(../../images/bank/SHUNDENC.png);
+}
+.bank-list .bank-item.PCBCCNBJ .bank-logo {
+    background-image: url(../../images/bank/PCBCCNBJ.png);
+}
+.bank-list .bank-item.SPDBCNSH .bank-logo {
+     background-image: url(../../images/bank/SPDBCNSH.png);
+ }
+.bank-list .bank-item.MSBCCNBJ .bank-logo {
+    background-image: url(../../images/bank/MSBCCNBJ.png);
+}
+.bank-list .bank-item.EVERCNBJ .bank-logo {
+    background-image: url(../../images/bank/EVERCNBJ.png);
+}
+.bank-list .bank-item.SZCBCNBS .bank-logo {
+    background-image: url(../../images/bank/SZCBCNBS.png);
+}
+.bank-list .bank-item.HZCBCN2H .bank-logo {
+    background-image: url(../../images/bank/HZCBCN2H.png);
+}.bank-list .bank-item.GDBKCN22 .bank-logo {
+     background-image: url(../../images/bank/GDBKCN22.png);
+ }
+.bank-list .bank-item.CMBCCNBS .bank-logo {
+    background-image: url(../../images/bank/CMBCCNBS.png);
+}
+.bank-list .bank-item.HXBKCNBJ .bank-logo {
+    background-image: url(../../images/bank/HXBKCNBJ.png);
+}
+.bank-list .bank-item.BOSHCNSH .bank-logo {
+    background-image: url(../../images/bank/BOSHCNSH.png);
+}
+.bank-list .bank-item.CIBKCNBJ .bank-logo {
+    background-image: url(../../images/bank/CIBKCNBJ.png);
+}
+.bank-list .bank-item.COMMCN .bank-logo {
+    background-image: url(../../images/bank/COMMCN.png);
+}
+.bank-list .bank-item.FJIBCNBA .bank-logo {
+    background-image: url(../../images/bank/FJIBCNBA.png);
+}
+.bank-list .bank-item.PSBCCNBJSZ .bank-logo {
+    background-image: url(../../images/bank/PSBCCNBJSZ.png);
+}
+
+
+
+.bank-list .bank-item .bank-logo {
+}
+.bank-list .bank-item .bank-logo {
+}
+.bank-list .bank-item .bank-logo {
+}
+.bank-list .bank-item .bank-logo {
+}
+.bank-list .bank-item .bank-logo {
+}
+.bank-list .bank-item .bank-title{
+    font-size: 1.5rem;
+}
+.bank-list .bank-item .bank-type{
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: 1.2rem;
+}
+.bank-list .bank-item .bank-num{
+    margin-top: 0.8rem;
+    margin-right: 1rem;
+    padding-bottom: 1.2rem;
+    text-align: right;
+    font-size: 1.2rem;
+}
+/*8.13*/
+.banner{
+    width: 100%;
+    height: 8rem;
+    background: #d5effb;
+    margin-top: 0.8rem;
+}
+.approve-content{
+    text-align: center;
+    padding-top: 6rem;
+}
+.approve-content .h2{
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 1rem;
+}
+.approve-content .font17{
+    font-size: 1.7rem;
+    font-weight: bold;
+    padding-bottom: 1rem;    
+}
+.freeze{
+    color: #9ba1a7;
+}
+.condition label{
+    height: 3rem;
+    line-height: 1.5rem;
+    display: block;
+}
+.bank-list .add-bank-item{
+    background: #fff;
+    border: 2px dashed #d7d7d7;
+    height: 7.5rem;
+    color: #757575;
+    font-size: 1.5rem;
+    padding: 0;
+    line-height: 7.5rem;
+    text-align: center;
+}
+.bank-list .add-bank-item i{
+    font-size: 3rem;
+    color: #d7d7d7;
+
+}
+.bank-list .add-bank-item span{
+    margin-left: 0.5rem;
+    vertical-align: 0.7rem;
+}
+.approve h3,.approve-content .sm-font{
+    color: rgba(255,255,255,0.54);
+}
