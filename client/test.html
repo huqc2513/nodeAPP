@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Socket.IO Example</title>
+</head>
+<body>
+<h1>Socket.IO Example</h1>
+
+
+
+
+<script>
+  var socket = io.connect('http://127.0.0.1:3000');
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Socket.IO Example</title>
+</head>
+<body>
+<h1>Socket.IO Example</h1>
+<h2>How many users are here?</h2>
+<p id="count"></p>
+
+<script src="node_modules/jquery/src/jquery.js"></script>
+<script src="/node_modules/socket.io/lib/socket.js"></script>
+
+<script>
+  var socket = io.connect('http://127.0.0.1:3000');
+  var count = document.getElementById('count');
+
+  socket.on('users',function(data){
+  ///  socket.emit('message',{text:'你上线了'});
+   // console.log('Got update from the server');
+    alert('个数 ' + data.number + 'users');
+    count.innerHTML = data.number
+  });
+</script>
+
+</body>
+</html>
