@@ -30,9 +30,6 @@
 			</el-table-column>
 			<el-table-column prop="price" label="价格"  sortable>
 			</el-table-column>
-			<el-table-column prop="salesVolume
-" label="销量"  sortable>
-			</el-table-column>
 			<el-table-column prop="created_at" label="创建时间" sortable>
 			</el-table-column>
 			<el-table-column label="操作" width="150">
@@ -73,18 +70,18 @@
           <el-input v-model="editForm.price"></el-input>
         </el-form-item>
 
-      <el-form-item label="年龄">
 
-        <el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
-
-      </el-form-item>
 
         <el-form-item label="商品图片">
           <hr>
-          <p v-if='editForm.images' style="height: 15px;margin: 0;clear: both;line-height: 15px
+          <p v-show='editForm.images' style="height: 15px;margin: 0;clear: both;line-height: 15px
 ;position: relative;top:-10px;font-size: 12px;">标注：绿色框为商品封面,点击可切换商品封面图</p>
 
-          <!--<p  v-if='editForm.images.length==0' style="text-align: center">此商品暂无图片</p>-->
+          <!--<p v-show='editForm.images==[]' style="text-align: center">-->
+
+            <!--此商品暂无图片-->
+
+          <!--</p>-->
 
           <div :class="{'img_box':true,'border':item.is_cover=='yes'?true:false}" v-for="(item,index) in editForm.images" @click="check_is_cover(index)">
 
@@ -93,12 +90,11 @@
               <img :src='item.images_path' alt="">
             </div>
               <div style="text-align: center;">
-                <el-button @click='del_image(item)'type="primary" icon="el-icon-delete"></el-button>
+                <el-button @click='del_image(item,index)'type="primary" icon="el-icon-delete"></el-button>
 
                 <div style="text-align: center;padding-top: 10px">
                       <div style="width:40px;margin: 0 auto">
-                        <!--<el-input v-model="item.sort" placeholder="序号" value="number">-->
-                        <!--</el-input>-->
+
                       </div>
                   </div>
               </div>
@@ -111,13 +107,12 @@
         </el-form-item>
 
 
-
         <div>
           <span style="width: 150px;display:inline-block">商品图片上传</span>
           <el-upload
             ref="upload"
 
-            :data='{goods_id:15,is_cover:"yes"}'
+            :data='{goods_id:editForm.id,is_cover:editForm.is_cover}'
             class="upload-demo"
             action="http://localhost:3006/upload"
             :on-preview="handlePreview"
@@ -129,7 +124,7 @@
             list-type="picture">
 
             <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+            <!--<el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>-->
 
           </el-upload>
         </div>
@@ -147,10 +142,9 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="changeProduct">确 定</el-button>
       </span>
     </el-dialog>
-
 
 
 
@@ -166,47 +160,48 @@
     >
 
 
-      <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-				<el-form-item label="产品名称" prop="name">
-					<el-input v-model="addForm.name" auto-complete="off"></el-input>
-				</el-form-item>
+      <el-form :model="addForm"   label-width="80px" :rules="addFormRules" ref="addForm">
 
-        <el-form-item label="所属分类" prop="name">
-          <el-input v-model="addForm.category" auto-complete="off"></el-input>
-        </el-form-item>
+        <div>
+          <el-form-item label="产品名称"  prop="name">
+            <el-input v-model="addForm.name" auto-complete="off"></el-input>
+          </el-form-item>
 
-        <el-form-item label="生产地址" prop="name">
-          <el-input v-model="addForm.site" auto-complete="off"></el-input>
-        </el-form-item>
+          <el-form-item label="所属分类" prop="name">
+            <el-input v-model="addForm.category" auto-complete="off"></el-input>
+          </el-form-item>
 
-        <el-form-item label="段位" prop="name">
-          <el-input v-model="addForm.grading" auto-complete="off"></el-input>
-        </el-form-item>
+          <el-form-item label="生产地址" prop="name">
+            <el-input v-model="addForm.site" auto-complete="off"></el-input>
+          </el-form-item>
 
-        <el-form-item label="价格" prop="name">
-          <el-input v-model="addForm.price" auto-complete="off"></el-input>
-        </el-form-item>
+          <el-form-item label="段位" prop="name">
+            <el-input v-model="addForm.grading" auto-complete="off"></el-input>
+          </el-form-item>
 
+          <el-form-item label="价格" prop="name">
+            <el-input v-model="addForm.price" auto-complete="off"></el-input>
+          </el-form-item>
+      </div>
 
 
         <div>
           <span style="width: 150px;display:inline-block">商品图片上传</span>
           <el-upload
-            ref="upload"
-
-            :data='{goods_id:15,is_cover:"yes"}'
+            ref="upload2"
+            :data="{id:22}"
             class="upload-demo"
-            action="http://localhost:3006/upload"
+            action="http://localhost:3006/product/add"
             :on-preview="handlePreview"
             name="file"
             :auto-upload="false"
             :on-success="on_success"
             :on-remove="handleRemove"
             :file-list="fileList1"
-            list-type="picture">
+            list-type="picture"
+           >
 
             <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
 
           </el-upload>
         </div>
@@ -227,16 +222,16 @@
 <script>
 	import util from '../../common/js/util'
 
-	import { getGoodsList,login,delGoods,del_image} from '../../api/api';
+	import { getGoodsList,login,delGoods,del_image,add_product} from '../../api/api';
 
   //getGoodsList
 
 	export default {
 		data() {
 			return {
-
+        Vueself:'',
         fileList: [],
-        fileList1:[],
+        fileList1: [],
 				filters: {
 					name: '',
           count:1,
@@ -269,7 +264,7 @@
 				addLoading: false,
 				addFormRules: {
 					name: [
-						{ required: true, message: '请输入姓名', trigger: 'blur' }
+						{ required: false, message: '请输入姓名', trigger: 'blur' }
 					]
 				},
 				//新增界面数据
@@ -278,18 +273,18 @@
           price:'',
           site:'',
           grading:'',
-          salesVolume:'',
-          category:'',
 
-					sex: -1,
-					age: 0,
-					birth: '',
-					addr: ''
+          category:'',
+          fileList1:[],
 				}
 
 			}
 		},
 		methods: {
+      changeProduct(){
+        this.submitUpload();
+        this.dialogVisible = false
+      },
       check_is_cover(index){
         let list =this.editForm.images;
         if(list){
@@ -304,7 +299,7 @@
         this.$refs.upload.submit();
       },
 		  //删除图片
-      del_image(item){
+      del_image(item,index){
 
         let id =item.image_id;
         let name = item.images_path;
@@ -313,14 +308,19 @@
         let obj={
           id:id,
           fileName:name
-        }
-
+        };
+  //发送请求
         del_image(obj).then(data=>{
             alert(data.data.msg);
+
+          this.editForm.images.splice(index);
+
+
         });
 
 
       },
+      //编辑成功
       on_success(response, file, fileList) {
 
         if(file.response.code==200){
@@ -330,9 +330,8 @@
             type: 'success'
           });
 
-
-
-
+          this.init();
+          this.$refs.upload.clearFiles();
         };
       },
       handleRemove(file, fileList) {
@@ -388,7 +387,7 @@
 
 
       },
-      //删除
+      //删除商品
       handleDel: function (index, row) {
 
         this.$confirm('确认删除该记录吗?', '提示', {
@@ -403,7 +402,7 @@
 
 
           delGoods(para).then(data => {
-            if (data.data.code != 500) {
+            if (data.data.code == 1) {
 
               this.$message({
                 message:data.data.msg,
@@ -411,8 +410,11 @@
               });
 
               this.listLoading = false;
-
-              this.init();
+            }else{
+              this.$message({
+                message:data.data.msg,
+                type: 'success'
+              });
 
             }
           })
@@ -428,17 +430,12 @@
         this.editFormVisible = true;
         this.editForm = Object.assign({}, row);
         // console.log(this.editForm);
+        // console.log(this.editForm);
       },
       //显示新增界面
       handleAdd: function () {
         this.addFormVisible = true;
-        this.addForm = {
-          name: '',
-          sex: -1,
-          age: 0,
-          birth: '',
-          addr: ''
-        };
+
       },
       //编辑
       editSubmit: function () {
@@ -466,32 +463,32 @@
       },
       //新增
       addSubmit: function () {
+
+
         this.$refs.addForm.validate((valid) => {
           if (valid) {
             this.$confirm('确认提交吗？', '提示', {}).then(() => {
               this.addLoading = true;
-              //NProgress.start();
+
               let para = Object.assign({}, this.addForm);
-              para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-              addUser(para).then((res) => {
-                this.addLoading = false;
-                //NProgress.done();
-                this.$message({
-                  message: '提交成功',
-                  type: 'success'
-                });
-                this.$refs['addForm'].resetFields();
-                this.addFormVisible = false;
-                this.getUsers();
-              });
+
+              this.$refs.upload2.submit();
+
+              // add_product(para).then(data=>{
+              //     console.log(data);
+              // })
+
+
             });
+
+
           }
         });
       },
       selsChange: function (sels) {
         this.sels = sels;
       },
-      //批量删除
+      //批量删除商品
       batchRemove: function () {
         var ids = this.sels.map(item => item.id);
 
@@ -541,13 +538,12 @@
             this.total =data.data.totalElement;
 
           }
-        }).catch( err=>{
-
         });
       }
     },
 		created() {
         this.init();
+        this.Vueself = this;
 		}
 
   }

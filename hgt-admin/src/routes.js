@@ -16,7 +16,7 @@ let routes = [
     {
         path: '/login',
         component: Login,
-        name: '',
+        name: 'login',
         hidden: true
     },
     {
@@ -28,6 +28,9 @@ let routes = [
     //{ path: '/main', component: Main },
     {
         path: '/',
+        meta: {
+          requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+        },
         component: Home,
         name: '商品管理',
         iconCls: 'el-icon-message',//图标样式class
@@ -70,8 +73,12 @@ let routes = [
     {
         path: '*',
         hidden: true,
-        redirect: { path: '/404' }
+        redirect: { path: '/'
+        }
     }
 ];
+
+
+
 
 export default routes;

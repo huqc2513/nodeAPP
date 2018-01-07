@@ -39,7 +39,7 @@
               <el-menu-item-group>
 
                 <el-menu-item index="/table">商品列表</el-menu-item>
-                <el-menu-item index="/form">表单</el-menu-item>
+
               </el-menu-item-group>
 
             </el-submenu>
@@ -52,7 +52,7 @@
               <el-menu-item-group>
 
                 <el-menu-item index="/order">订单列表</el-menu-item>
-                <el-menu-item index="/order">表单</el-menu-item>
+
               </el-menu-item-group>
 
             </el-submenu>

@@ -396,7 +396,6 @@
 
           this.total =data.data.totalElement;
 
-
         }
       });
     }
