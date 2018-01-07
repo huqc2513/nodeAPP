@@ -10,14 +10,15 @@ nodeApp
 
 ##目前实现的功能有：<br>
 
-###注册<br>
-###登陆/登出<br>
-###添加商品<br>
+##注册<br>
+##登陆/登出<br>
+##添加商品<br>
 
-###添加购物车并结算<br>
+##添加购物车并结算<br>
 ##项目运行<br>
-// 安装依赖<br>
-##npm install<br>
+
+> 安装依赖<br>
+ ##npm install<br>
 
 ##npm run dev<br>
 
