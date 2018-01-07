@@ -21,24 +21,14 @@ const multer = require('koa-multer');//加载koa-multer模块
 
 var app=new Koa()
 
-
-
-
-
-
-
 app.use(cors({
     origin:function(ctx){
-
-        // if (ctx.url === '/login') {
-        // return ' http:localhost:8081'; // 允许来自所有域名请求
-        return 'http://localhost:8080'
-        // }
-
-        //  return '*';
+        let name = ctx.request.host;
+        //   console.log(name);
+        return 'http://112.74.173.191';// 允许来自所有域名请求
+        //return '*';
 
     },
-    //Access-Control-Allow-Credentials:true,
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,
     credentials: true,
@@ -46,6 +36,12 @@ app.use(cors({
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 
 }))
+
+
+
+
+
+
 
 
 
@@ -89,7 +85,7 @@ app.use(session({
 // 使用表单解析中间件
 app.use(bodyParser());
 
-
+// app.use(cors());
 
 // // 使用新建的路由文件
 app.use(require('./routes/signup.js').routes());
@@ -100,13 +96,14 @@ app.use(require('./routes/home/home.js').routes());
 //商品模块
 app.use(require('./routes/product/index.js').routes());
 
+// app.use(require('../routes/login/index.js').routes());
 
-
-//商品模块
+//订单模块
 app.use(require('./routes/order/order.js').routes());
 
-
+app.use(require('./routes/login/index.js').routes());
 app.use(require('./routes/upload/index.js').routes());
+
 
 
 

@@ -10,6 +10,7 @@ import axios from 'axios'
       path = 'http://112.74.173.191:3006';
     }
 
+  //path = 'http://localhost:3006';
 
 ///shopcat/del
 export function getClassify() {
@@ -24,7 +25,7 @@ export function create_order(obj) {
   return axios.post(path+'/create_order',obj);
 }
 export function shopcat_del(i) {
-  let  id =  JSON.parse(sessionStorage.getItem('user')).id;
+  //let  id =  JSON.parse(sessionStorage.getItem('user')).id;
   return axios.post(path+'/shopcat/del',{id:i});
 }
 export  function shopcat_add(obj) {
@@ -112,7 +113,9 @@ export function search(keyword,currpage,type) {
 }
 
 // /logout
-
+export function get_goods_details(id){
+  return axios.get(path+'/goods/details?id='+id)
+}
 export function logout() {
     return axios.get(path+'/logout');
 }

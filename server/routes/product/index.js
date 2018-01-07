@@ -66,27 +66,31 @@ router.post('/product/query',async (ctx,next)=> {
 
 });
 
-router.get('/product/details',async (ctx,next)=>{
+// router.get('/product/details',async (ctx,next)=>{
+//
+//         let goods_id =  ctx.request.query.id;
+//         console.log(ctx.request.query.id);
+//         let sql = `select banner_src,banner_sort from banner where goods_id=${goods_id}`;
+//         let sql2 =`select name from goods where id=${goods_id}`;
+//         let obj = {
+//             goods_id:goods_id,
+//             name:'',
+//             list:'',
+//         };
+//         try{
+//             obj.list=  await  sequelize.query(sql, {type: sequelize.QueryTypes.SELECT});
+//            // console.log('------------------------');
+//           //  let  name=  await  sequelize.query(sql2, {type: sequelize.QueryTypes.SELECT});
+//             //console.log(name);
+//           //  obj.name=name[0]['name'];
+//         }catch (err){
+//             console.log(err);
+//         }
+//          ctx.body = obj;
+// });
 
-        let goods_id =  ctx.query.goods_id;
-        let sql = `select banner_src,banner_sort from banner where goods_id=${goods_id}`;
-        let sql2 =`select name from goods where id=${goods_id}`;
-        let obj = {
-            goods_id:goods_id,
-            name:'',
-            list:'',
-        };
-        try{
-            obj.list=  await  sequelize.query(sql, {type: sequelize.QueryTypes.SELECT});
-           // console.log('------------------------');
-          //  let  name=  await  sequelize.query(sql2, {type: sequelize.QueryTypes.SELECT});
-            //console.log(name);
-          //  obj.name=name[0]['name'];
-        }catch (err){
-            console.log(err);
-        }
-         ctx.body = obj;
-});
+
+
 let path ='../../public/app/images/';
 
 function resolve(dir) {
@@ -95,7 +99,7 @@ function resolve(dir) {
 
 router.post('/del_image',async (ctx,next)=>{
 
-    console.log(ctx.request.body);
+   // console.log(ctx.request.body);
     let id = ctx.request.body.id;
     let name = ctx.request.body.fileName;
 

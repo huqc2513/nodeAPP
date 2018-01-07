@@ -19,7 +19,7 @@
 
             <div class="item"  v-for="items in item.list">
               <div class="goods-img">
-                <img :src=items.imgSrc alt="">
+                  <img :src=items.imgScr alt="">
               </div>
 
               <div class="product-info">
@@ -78,11 +78,12 @@
           getList(){
             getOrderList().then((data)=>{
 
-              if(data.data.order_list[0].length==0){
+              if(data.data.orderlist.length==0){
                 this.orderList=[];
                 return
               }
-              let arr =data.data.order_list[0];
+              console.log(data.data.orderlist);
+              let arr =data.data.orderlist;
               arr.forEach((i)=>{
                 i.self=false;
               });
@@ -106,7 +107,11 @@
               return
             }
               deleteAll(arr).then((data)=>{
+              if(data.data.code==1){
+                alert('删除成功')
                 this.getList();
+              }
+
               });
 
           },

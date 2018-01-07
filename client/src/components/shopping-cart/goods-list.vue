@@ -33,7 +33,7 @@
 
           </div>
           <div class="deleete-item">
-            <p  class="dels" :name=item.cartid @click="del(index,item.shop_cart_Id,$event)" >删除</p>
+            <p  class="dels" :name=item.cartid @click="del(index,item.product_cart_id,$event)" >删除</p>
           </div>
 
         </div>
@@ -110,7 +110,9 @@
         del(index,id,event){
 
           shopcat_del(id).then(data=>{
-            alert('陈宫');
+
+
+              alert('陈宫');
 
             this.$emit('changeDelete',index,id);
             var container = $('.swipeleft');           //将展开的DOM归位 除掉样式类

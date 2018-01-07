@@ -47,13 +47,6 @@
             is_checked:false,
             goodslist:[
               {
-                // cartid:1,
-                // count:1,
-                // id:1,
-                // imgScr:require('./img/product.png'),
-                // name:'宝贝儿奶粉',
-                // price:'179',
-                // is_class:false,
               }
             ]
           }
@@ -133,6 +126,7 @@
                   });
                   this.goodslist =  arr;
                 }else if(data.data.code==-1){
+                  alert('登陆以过期');
                       this.$router.push({path:'/'});
                 }
             }
@@ -144,7 +138,7 @@
 
 <style  lang="stylus" scoped>
   .active
-    color #87c369
+    color #87c369d
   #header{
     position: fixed;
     left: 0;

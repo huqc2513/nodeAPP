@@ -101,15 +101,14 @@
            get_goods_details(this.good_id).then(data=>{
              if(data.data.code==200) {
                let arr=[];
-
-
                 let len= data.data.evaluate;
                 for(let i=0;i<len.length;i++){
-                  arr.push({url: data.data.evaluate[i].banner_src});
+                  arr.push({url: data.data.evaluate[i].images_path});
                 }
                 this.listImg= arr;
 
                 this.comment =data.data.bannerList;
+                console.log(data.data);
 
                 this.goodslist =   [
                         {name:'产品细节'},
@@ -146,6 +145,7 @@
       },
       submit_shopcart(){
         this.from.count++;
+        this.from.goodid= this.good_id;
         shopcat_add(this.from).then(data=>{
 
               alert('加入成功');

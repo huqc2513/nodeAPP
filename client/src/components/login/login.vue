@@ -52,13 +52,14 @@ import {login,getHot} from 'config/api'
                  //登陆
                  login(this.from).then((data)=>{
                    if(data.data.code===1){
-                     alert(data.data.msg);
+                     alert('登陆成功');
                      sessionStorage.setItem('user', JSON.stringify(data.data.info));
                    };
 
                    this.$router.push({path: '/home/index'});
 
-                 }).catch((err)=>{
+                 })
+                   .catch((err)=>{
                    alert(err);
                  });
 

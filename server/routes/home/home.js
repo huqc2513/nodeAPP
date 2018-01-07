@@ -134,7 +134,7 @@ router.post('/orderList/add', async (ctx, next) =>{
 
         let id = re[0];
 
-         let sql = `insert into order_details(product_id,order_id,count,product_type) values (${product_id},${id},${count},${type})`;
+         let sql = `insert into order_details(product_id,order_id,count,type) values (${product_id},${id},${count},${type})`;
 
           result = await  sequelize.query(sql, {type: sequelize.QueryTypes.INSERT});
 
@@ -166,7 +166,7 @@ router.get('/shopcat/list', async (ctx, next) =>{
     let id = ctx.query.id;
     if(id==''){
         ctx.body = {
-            code: 1,
+            code: 500,
             msg:'id不能为空'
         };
     }
@@ -195,7 +195,7 @@ router.post('/shopcat/add', async (ctx, next) =>{
 
     let count = ctx.request.body.count;
     let user_id = ctx.request.body.user_id;
-    let goods_id =ctx.request.body.id;
+    let goods_id =ctx.request.body.goodid;
 
     let reuslt=null;
 
@@ -227,7 +227,7 @@ router.post('/shopcat/del', async (ctx, next) =>{
 
     let id = ctx.request.body.id;
     let reuslt=null;
-    let sql = `DELETE FROM product_cart where shop_cart_Id=${id}`;
+    let sql = `DELETE FROM product_cart where product_cart_id=${id}`;
     try{
         reuslt =await sequelize.query(sql, {type: sequelize.QueryTypes.DELETE});
     }catch (err){
@@ -278,17 +278,21 @@ router.post('/create_order', async (ctx, next) =>{
         // console.log('新政id'+json.result[0]);
         let sql = `insert into order_details(product_id,order_id,count) values`;
         let shopcartId=[];//要删除的购物车id
+      //  console.log(goods);
         goods.forEach(i=>{
-            shopcartId.push(i.shop_cart_Id);
+
+            shopcartId.push(i.goodid);
+
             sql+=` (${i.goodid},${json.result[0]},${i.count}),`
         });
         sql = sql.slice(0,-1);
         let rs = await sequelize.query(sql, {type: sequelize.QueryTypes.INSERT});
-        //console.log(rs);
+
        if(rs){
            json.code=200;
            let str = shopcartId.join(',');
-           let sql = `DELETE FROM product_cart where shop_cart_Id in (${str}) `;
+
+           let sql = `DELETE FROM product_cart where goodid in (${str}) `;
            let res = await sequelize.query(sql, {type: sequelize.QueryTypes.DELETE});
             console.log(res);
            // if(res){
@@ -304,12 +308,17 @@ router.post('/create_order', async (ctx, next) =>{
 
 
 });
+
 //产品详情
 router.get('/goods/details', async (ctx, next) => {
+    // console.log(ctx.request.query);
+    let id = ctx.request.query.id;
 
-    let id = ctx.query.id;
-    let sql1 = `SELECT a.username,b.* from users a right JOIN comment b on b.user_id=a.id WHERE  good_id=${id}`;
-    let sql2= `SELECT a.*  from banner a WHERE goods_id=${id} ORDER BY banner_sort DESC`;
+
+    let sql1 = `SELECT a.username,b.* from users a right JOIN comment b on b.user_id=a.id WHERE  b.goods_ID=${id}`;
+
+    let sql2= `select a.images_path,a.sort,is_cover,a.goods from images a where  a.goods=${id} ORDER BY sort asc`;
+
     let sql3= `select  * from goods where id= ${id}`;
 
     let obj = {
@@ -321,12 +330,24 @@ router.get('/goods/details', async (ctx, next) => {
     try{
         obj.detailsInfo = await  sequelize.query(sql3,{ type: sequelize.QueryTypes.SELECT});
         obj.bannerList = await  sequelize.query(sql1,{ type: sequelize.QueryTypes.SELECT});
-        obj.evaluate = await  sequelize.query(sql2,{ type: sequelize.QueryTypes.SELECT});
+        obj.evaluate = await  sequelize.query(sql2,{ type: sequelize.QueryTypes.SELECT});//轮播图
+
+
+        for(let i=0;i<obj.evaluate.length;i++){
+                if(obj.evaluate[i].is_cover=='yes'){
+                    let str =obj.evaluate[i]
+                    obj.evaluate.splice(i,1);
+                    obj.evaluate.unshift(str);
+                }
+        }
+        // console.log(obj.evaluate.forEach(i=>{
+        //     console.log(i);
+
+        // }));
     }catch (err){
-        console.log(err);
+       // console.log(err);
     }
 
-    console.log(obj.bannerList);
     console.log(obj.evaluate);
 
         ctx.body = obj;

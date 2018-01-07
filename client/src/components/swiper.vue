@@ -28,7 +28,11 @@
       }
   },
     mounted() {
+        this.init();
 
+    },
+    methods:{
+      init(){
         if(this.listImg!='') {
           this.$nextTick(function () {
             let swiper = new Swiper('.swiper-container', {
@@ -41,9 +45,18 @@
               speed: 600,
               autoplay: 4000,
               loop: true,
-              });
             });
+          });
         }
+      }
+    },
+    watch:{
+      listImg:{
+        handler(now){
+          this.init();
+        },
+        deep:true
+      }
     }
   }
 </script>

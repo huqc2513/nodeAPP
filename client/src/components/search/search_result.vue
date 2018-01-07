@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%;overflow: hidden">
-    <heads :nub="1" :modules="'search'"  @showbox='changeDate' :keyword="keyword"> </heads>
+    <heads :nub="1" :modules="'search'"   @changeDate='changeDate' :keyword="keyword"> </heads>
 
     <div  v-if="shows" style="text-align: center;margin-top: 10px">
       <b>暂无数据</b>
@@ -15,10 +15,9 @@
 </template>
 
 <script>
+
   import  heads from './search_head'
-
   import navs from '../nav/nav'
-
   import {search} from 'config/api'
 
 
@@ -145,35 +144,22 @@
           },
           changeDate(data){
           //  this.price_sort  = ! this.price_sort;
-            let priceSort ;
-            if(!this.price_sort){
-              priceSort = 'DESC';
-            }else{
-              priceSort= 'ASC';
-            }
 
-            search(this.keyword,1,priceSort).then((data)=>{
-
+//            let priceSort ;
+//            if(!this.price_sort){
+//              priceSort = 'DESC';
+//            }else{
+//              priceSort= 'ASC';
+//            }
+            console.log(data);
               if(data.data.list==''||data.data.list==undefined||data.data.list==[]){
                 this.shows = true;
                 console.log('无数据');
               }else{
                 this.shows = false;
                 this.goodslist= data.data.list;
-                console.log('有数据');
+
               }
-
-            })
-
-
-//         if(data.data.list.length>0){
-//
-//           this.goodslist= data.data.list;
-//           this.shows=false;
-//         }else{
-//           //alert(1);
-//           this.shows=true;
-//         }
 
         }
       }

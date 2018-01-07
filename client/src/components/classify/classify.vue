@@ -89,7 +89,7 @@
       getClassify().then(data=>{
           if(data.data.code==200){
             let arr=[];
-
+            console.log(data.data);
 //    console.log(data);
         data.data.list.forEach(i=>{
               let obj ={src:i.src,type:i.c_name,name:i.introduce,id:i.classify_id

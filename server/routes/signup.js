@@ -19,158 +19,173 @@ const shopCart = require('../model/product-cart')(sequelize,Sequelize);
 
 
 
-
-            router.post('/register',async (ctx,next)=> {
-                    let user={
-                        name:ctx.request.body.name,
-                        pass:ctx.request.body.pass,
-                        repeatpass:ctx.request.body.repeatpass,
-                        phone:ctx.request.body.phone,
-                        userName:ctx.request.body.username,
-                    };
-                    if (user.pass!==user.repeatpass || user.pass=='') {
-                            ctx.body={
-                                data:3,
-                                msg:'两次输入的密码不一致'
-                            };
-                            return
-                    }
-                       let register =  await User.findAll({
-                                    where:{
-                                        name:user.name
-                                    }
-                                });
-                       if(register!=null){
-                               ctx.body={
-                                   code:2,
-                                   msg:'用户已存在'
-                               }
-                       }else {
-                          let res = await User.create({
-                               name: user.name,
-                               pass: md5(user.pass),
-                               phone: user.phone,
-                               username: user.username,
-                           });
-
-                       }
-                });
-            router.post('/login',async (ctx,next)=> {
-                         let user = {
-                             name: ctx.request.body.name,
-                             pass: ctx.request.body.pass,
-                         };
-
-                            let login=null;
-                      try {
-                          login = await User.findAll({
-                              where: {
-                                  name: user.name,
-                                  pass: md5(user.pass)
-                              }
-                          });
-                      }catch(err){
-
-                          ctx.body = {
-                              code: 0,
-                              msg: '错误',
-                              info:err,
-                          };
-                          return
-                      }
-
-
-                     if (login != null) {
-                         let item = login[0];//存入数据
-                         let obj = {
-                             name: item.name,
-                             phone: item.phone,
-                             username: item.username,
-                             header_portrait: item.header_portrait,
-                             created_at: item.created_at
-                         };
-                        obj.id = item.id;
-
-                       //  ctx.cookies.set('name', 'frank', { signed: true ,maxAge:7200000});
-
-                         ctx.session.user = {
-                             obj
-                         };
-
-                         ctx.body = {
-                             code: 1,
-                             msg: '登陆成功',
-                             info: obj,
-                         };
-
-
-                 }else{
-                         ctx.body={
-                             code:0,
-                             msg:'账号或者密码错误'
-                         };
-                 }
- });
+ //
+ //            router.post('/register',async (ctx,next)=> {
+ //                    let user={
+ //                        name:ctx.request.body.name,
+ //                        pass:ctx.request.body.pass,
+ //                        repeatpass:ctx.request.body.repeatpass,
+ //                        phone:ctx.request.body.phone,
+ //                        userName:ctx.request.body.username,
+ //                    };
+ //                    if (user.pass!==user.repeatpass || user.pass=='') {
+ //                            ctx.body={
+ //                                data:3,
+ //                                msg:'两次输入的密码不一致'
+ //                            };
+ //                            return
+ //                    }
+ //                       let register =  await User.findAll({
+ //                                    where:{
+ //                                        name:user.name
+ //                                    }
+ //                                });
+ //                       if(register!=null){
+ //                               ctx.body={
+ //                                   code:2,
+ //                                   msg:'用户已存在'
+ //                               }
+ //                       }else {
+ //                          let res = await User.create({
+ //                               name: user.name,
+ //                               pass: md5(user.pass),
+ //                               phone: user.phone,
+ //                               username: user.username,
+ //                           });
+ //
+ //                       }
+ //                });
+ //            router.post('/login',async (ctx,next)=> {
+ //                         let user = {
+ //                             name: ctx.request.body.name,
+ //                             pass: ctx.request.body.pass,
+ //                         };
+ //
+ //                            let login=null;
+ //                      try {
+ //                          login = await User.findAll({
+ //                              where: {
+ //                                  name: user.name,
+ //                                  pass: md5(user.pass)
+ //                              }
+ //                          });
+ //                      }catch(err){
+ //
+ //                          ctx.body = {
+ //                              code: 0,
+ //                              msg: '错误',
+ //                              info:err,
+ //                          };
+ //                          return
+ //                      }
+ //
+ //
+ //                     if (login != null) {
+ //                         let item = login[0];//存入数据
+ //                         let obj = {
+ //                             name: item.name,
+ //                             phone: item.phone,
+ //                             username: item.username,
+ //                             header_portrait: item.header_portrait,
+ //                             created_at: item.created_at
+ //                         };
+ //                        obj.id = item.id;
+ //
+ //                       //  ctx.cookies.set('name', 'frank', { signed: true ,maxAge:7200000});
+ //
+ //                         ctx.session.user = {
+ //                             obj
+ //                         };
+ //
+ //                         ctx.body = {
+ //                             code: 1,
+ //                             msg: '登陆成功',
+ //                             info: obj,
+ //                         };
+ //
+ //
+ //                 }else{
+ //                         ctx.body={
+ //                             code:0,
+ //                             msg:'账号或者密码错误'
+ //                         };
+ //                 }
+ // });
 
 
             router.get('/orderList', async (ctx, next) => {
             let id =  ctx.query.id;
-            let sql = `SELECT  * from myoder WHERE userid=${id}`;  //查询用户的所有订单
-            let order = await  sequelize.query(sql,{ type: sequelize.QueryTypes.SELECT});
 
 
-            let idlist = [];   //循环每个订单id
-
-            let result = [];    //订单结果
-            for(let i=0;i<order.length;i++){
-                let obj = {
-                    id:order[i].id,
-                    total_price:order[i].total_price,
-                    status:order[i].status,
-                    create_time:order[i].create_time,
-                    list:{},
+                let json ={
+                    orderlist:[],
+                    code:200,
                 };
-                idlist.push(obj);
-            }
-            //根据订单id    查询订单详情表
-            for(let i=0;i<idlist.length;i++) {
-                let sql2 = `select *  FROM  order_details WHERE order_id =${idlist[i].id}`;
-                 //查询用户的每条订单
-                let order_details = await  sequelize.query(sql2, {type: sequelize.QueryTypes.SELECT});
-                let orderlist= [];  //每一个订单
-                for(let i=0;i<order_details.length;i++){
-                    let id =  order_details[i].product_id;
-                    let sql3 = `select * from goods where id=${id}`;
-                    //查询每一个商品信息
-                    await sequelize.query(sql3, {type: sequelize.QueryTypes.SELECT}).then(data=>{
-                        data = data[0];
-                        let obj = {
-                            imgSrc: data.imgScr,
-                            name: data.name,
-                            price: data.price,
-                            id: order_details[i].id,
-                            count: order_details[i].count,
-                            units: order_details[i].units,
-                            grading: data.grading
-                        };
-                        orderlist.push(obj);
-                    });
-                }
-                idlist[i].list=orderlist;
-                result.push(idlist);
-            }
-            // // 判断是否登陆
-            if (ctx.session.user) {
-                ctx.body = {
-                    code:1,
-                    order_list:result
-                }
-            }else{
-                ctx.body = {
-                    code:-1,
-                    status: '您没有登陆',
-                }
-            }
+                let sql = `SELECT  * from myoder WHERE userid=${id}`;  //查询用户的所有订单
+
+               try {
+                   let order = await  sequelize.query(sql,{ type: sequelize.QueryTypes.SELECT});
+
+                   if(order.length!=0){
+                       let arr=[];
+                       order.forEach(i=>{
+
+                           arr.push(i.id);
+                           let obj = {
+                                   id: i.id,
+                                   total_price: i.total_price,
+                                   status: i.status,
+                                   create_time: i.create_time,
+                                   list: []
+                               };
+
+                           json.orderlist.push(obj);
+                       });
+
+                        for(let j=0;j<arr.length;j++){  //每一个订单中的商品 一个id对应一个商品
+
+                            let sql = `select * from order_details where order_id = ${arr[j]}`;
+                            let product = await  sequelize.query(sql,{ type: sequelize.QueryTypes.SELECT});
+
+
+                            for(let i=0;i<product.length;i++){
+                               // product[i].product_id
+                                let sql2 = `select  a.name,a.price,a.site,a.imgScr,a.grading from goods a where id = ${product[i].product_id}`;
+
+                                let order_info = await  sequelize.query(sql2,{ type: sequelize.QueryTypes.SELECT});
+
+                                let pss =   Object.assign(product[i], order_info[0]);
+
+                                json.orderlist[j].list.push(pss);
+                            }
+
+
+
+
+
+                          // console.log('-------');
+                          //   console.log(pss);
+
+
+                        }
+
+                   }
+               }catch (err){
+                        console.log(err);
+               }
+
+                ctx.body = json;
+
+            // // // 判断是否登陆
+            // if (ctx.session.user) {
+            //
+            // }
+                // else{
+            //     ctx.body = {
+            //         code:-1,
+            //         status: '您没有登陆',
+            //     }
+            // }
         });
 
             router.post('/orderList/del', async (ctx, next) => {
@@ -277,27 +292,7 @@ const shopCart = require('../model/product-cart')(sequelize,Sequelize);
 });
 
 
-            // 注销
-            router.get('/logout', ctx => {
 
-                try{
-                    ctx.session = null;
-                }catch (err){
-                    if(ctx.session!=null){
-
-                        ctx.body = {
-                            code: -1,
-                            msg: "请登录",
-                        }
-                    }
-                }
-
-
-                ctx.body = {
-                    code: -1,
-                    msg: "请登录",
-                }
-            })
 
 
 module.exports = router;
