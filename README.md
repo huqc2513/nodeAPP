@@ -18,10 +18,16 @@ nodeApp
 ##项目运行<br>
 
 > 安装依赖<br>
- ##npm install<br>
+> ##npm install<br>
+>
+>##npm run dev<br>
 
-##npm run dev<br>
 
-
+>服务器端  server文件
+> ##cd server npm install 
+>商城管理后台admin
+>hgt-admin
+>##npm install npm run dev
+>
 
 在线预览  http://112.74.173.191/dist/index.html
