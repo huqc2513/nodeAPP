@@ -26,11 +26,11 @@ nodeApp
 >npm run dev<br>
 
 
->服务器端  server文件<br>
+>服务器端  server<br>
 > cd server<br> 
 npm install <br>
->商城管理后台admin<br>
->hgt-admin<br>
+>商城管理后台hgt-admin<br>
+><br>
 >npm install <br> 
 npm run dev<br> 
 >
