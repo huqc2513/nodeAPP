@@ -34,4 +34,8 @@ nodeApp
 >
 
 app前端在线预览  http://112.74.173.191/dist/index.html
-管理后台在线预览 
+
+管理后台在线预览  http://112.74.173.191/admin/dist/index.html
+
+##前后台 账号密码一致 <br>
+123  123
