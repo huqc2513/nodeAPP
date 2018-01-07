@@ -39,5 +39,6 @@ app前端在线预览  http://112.74.173.191/dist/index.html
 
 管理后台在线预览  http://112.74.173.191/admin/dist/index.html
 
-##登陆账号密码 123  123
+##登陆账号密码 123  123<br>
+>导入nodesql数据，需要先创建nodesql数据库，修改server目录下的config文件中的mysql配置，项目在本地运行，需要在server中的index.js修改cors配置，改为本地url，才能本地跨域
 
