@@ -33,7 +33,7 @@
 			<el-table-column prop="created_at" label="创建时间" sortable>
 			</el-table-column>
 			<el-table-column label="操作" width="150">
-				<template scope="scope">
+				<template slot-scope="scope">
 					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
 					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
 				</template>
@@ -44,7 +44,7 @@
 		<el-col :span="24" class="toolbar">
 			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length==0">批量删除</el-button>
 
-			<el-pagination layout="total, prev, pager, next" @current-change="handleCurrentChange" :page-size="filters.pageCount" :total="total" style="float:right;"  >
+			<el-pagination layout="total, prev, pager, next" @current-change="handleCurrentChange" :page-size="filters.pageCount" :total="total" style="float:right;" >
 			</el-pagination>
 
 
@@ -111,12 +111,12 @@
           <span style="width: 150px;display:inline-block">商品图片上传</span>
           <el-upload
             ref="upload"
-
             :data='{goods_id:editForm.id,is_cover:editForm.is_cover}'
             class="upload-demo"
-            action="http://localhost:3006/upload"
+            :action="this.upload"
             :on-preview="handlePreview"
             name="file"
+            :multiple="true"
             :auto-upload="false"
             :on-success="on_success"
             :on-remove="handleRemove"
@@ -131,18 +131,14 @@
 
 
 
-
-
-
       </el-form>
-
 
 
 
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="changeProduct">确 定</el-button>
+        <el-button type="primary" @click="editProduct(editForm)">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -185,18 +181,22 @@
       </div>
 
 
+
+
         <div>
           <span style="width: 150px;display:inline-block">商品图片上传</span>
           <el-upload
             ref="upload2"
-            :data="{id:22}"
             class="upload-demo"
-            action="http://localhost:3006/product/add"
+            :action="this.uploadAdd"
             :on-preview="handlePreview"
             name="file"
-            :auto-upload="false"
-            :on-success="on_success"
-            :on-remove="handleRemove"
+            :before-upload="beforeUpload2"
+            :before-remove="beforeremove2"
+            :multiple="true"
+            :on-success="on_success1"
+
+            :on-remove="handleRemove2"
             :file-list="fileList1"
             list-type="picture"
            >
@@ -208,11 +208,10 @@
 
 
 
-
-			</el-form>
+      </el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click.native="addFormVisible = false">取消</el-button>
-				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
+				<el-button @click.native=remove_submit()>取消</el-button>
+				<el-button type="primary" @click.native="addSubmit()" :loading="addLoading">提交</el-button>
 			</div>
 		</el-dialog>
 
@@ -222,13 +221,22 @@
 <script>
 	import util from '../../common/js/util'
 
-	import { getGoodsList,login,delGoods,del_image,add_product} from '../../api/api';
 
-  //getGoodsList
+
+
+
+	import { getGoodsList,uploadPath,upload_edit_Path,login,delGoods,del_image,add_product,update_product} from '../../api/api';
+
+
+ let upload_add =upload_edit_Path();
+ let upload_edit= uploadPath();
 
 	export default {
 		data() {
+
 			return {
+        uploadAdd:upload_add,
+        upload:upload_edit,
         Vueself:'',
         fileList: [],
         fileList1: [],
@@ -257,9 +265,9 @@
 					sex: -1,
 					age: 0,
 					birth: '',
-					addr: ''
-				},
+					addr: '',
 
+				},
 				addFormVisible: false,//新增界面是否显示
 				addLoading: false,
 				addFormRules: {
@@ -273,17 +281,53 @@
           price:'',
           site:'',
           grading:'',
-
           category:'',
-          fileList1:[],
-				}
-
+          imagesList:[],
+				},
+        files: []
 			}
 		},
 		methods: {
-      changeProduct(){
+		  remove_submit(){
+
+        this.addFormVisible = false;
+        this.addForm.imagesList=[];
+      },
+      beforeremove2(file, fileList){
+        // for(let i in fileList){
+        //   if(fileList[i]==file){
+        //     this.addForm.imagesList.splice(i,1);
+        //     console.log(this.addForm.imagesList);
+        //   }
+        // }
+      },
+      beforeUpload2(file){
+          console.log(file);
+    },
+      //编辑商品
+      editProduct(e){
+
         this.submitUpload();
-        this.dialogVisible = false
+        let obj= {
+          id:e.id,
+          grading:e.grading,
+          name:e.name,
+          price:e.price,
+          site:e.site,
+          images:e.images
+        };
+        //提交表单
+          update_product(obj).then(data=>{
+
+            if(data.data.code=200){
+              this.$message(data.data.msg);
+            }
+            this.dialogVisible = false
+
+            this.init();
+
+        });
+        this.dialogVisible = false;
       },
       check_is_cover(index){
         let list =this.editForm.images;
@@ -321,7 +365,32 @@
 
       },
       //编辑成功
+      on_success1(response, file, fileList) {
+
+      //console.log(this.fileList1);
+
+        console.log(file.response.result);
+        if(file.response.code==200){
+
+          this.addForm.imagesList.push(file.response.result);
+         // console.log(this.addForm.imagesList);
+
+
+
+          //this.init();
+          //this.$refs.upload2.clearFiles();
+
+        }else{
+          this.$message({
+            message: file.response.msg,
+            type: 'success'
+          });
+        }
+      },
+      //图片上传成功
       on_success(response, file, fileList) {
+
+
 
         if(file.response.code==200){
 
@@ -337,12 +406,13 @@
       handleRemove(file, fileList) {
         // console.log(file, fileList);
       },
+      handleRemove2(file, fileList) {
+          console.log( fileList);
+      },
       handlePreview(file) {
         // console.log(file);
       },
-      // handleExceed(files, fileList) {
-      //   this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-      // },
+
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${ file.name }？`);
       },
@@ -409,7 +479,11 @@
                 type: 'success'
               });
 
+
+              this.init();
+
               this.listLoading = false;
+
             }else{
               this.$message({
                 message:data.data.msg,
@@ -464,26 +538,20 @@
       //新增
       addSubmit: function () {
 
+            add_product(this.addForm).then(data=>{
+                 if(data.data.code==200){
 
-        this.$refs.addForm.validate((valid) => {
-          if (valid) {
-            this.$confirm('确认提交吗？', '提示', {}).then(() => {
-              this.addLoading = true;
+                   this.$message({
+                     message: data.data.msg,
+                     type: 'success'
+                   });
+                   this.addFormVisible = false;
 
-              let para = Object.assign({}, this.addForm);
-
-              this.$refs.upload2.submit();
-
-              // add_product(para).then(data=>{
-              //     console.log(data);
-              // })
-
-
-            });
+                   this.init();
+              }
+            })
 
 
-          }
-        });
       },
       selsChange: function (sels) {
         this.sels = sels;
@@ -539,6 +607,31 @@
 
           }
         });
+      },
+      inputFile: function (newFile, oldFile) {
+        if (newFile && oldFile && !newFile.active && oldFile.active) {
+          // 获得相应数据
+          console.log('response', newFile.response)
+          if (newFile.xhr) {
+            //  获得响应状态码
+            console.log('status', newFile.xhr.status)
+          }
+        }
+      },
+      inputFilter: function (newFile, oldFile, prevent) {
+        if (newFile && !oldFile) {
+          // 过滤不是图片后缀的文件
+          if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+            return prevent()
+          }
+        }
+
+        // 创建 blob 字段 用于图片预览
+        newFile.blob = ''
+        let URL = window.URL || window.webkitURL
+        if (URL && URL.createObjectURL) {
+          newFile.blob = URL.createObjectURL(newFile.file)
+        }
       }
     },
 		created() {

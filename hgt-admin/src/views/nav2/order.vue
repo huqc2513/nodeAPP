@@ -20,24 +20,30 @@
     <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" >
       </el-table-column>
-      <el-table-column prop="id" label="订单编号" width="150" >
+      <el-table-column prop="id" label="编号" width="50" >
       </el-table-column>
       <el-table-column prop="address" label="收获地址" >
       </el-table-column>
-      <el-table-column prop="created_at" label="订单创建时间"  width="150" sortable>
+      <el-table-column prop="create_time" label="订单创建时间"     :formatter="dateFormat"   width="170" sortable>
       </el-table-column>
       <el-table-column prop="total_price" label="订单价格" >
       </el-table-column>
-      <el-table-column prop="userid
-" label="用户"  >
+      <!--<el-table-column prop="userid" label="用户"  >-->
+
+      <!--</el-table-column>-->
+      <el-table-column prop="name" label="用户名称" >
+    </el-table-column>
+
+      <el-table-column prop="phone" label="手机号" >
       </el-table-column>
+
       <el-table-column  label="订单状态" sortable>
         <template slot-scope="scope">
-          {{scope.status==A?'未配送':'其他' }}
+          {{scope.status=='A'?'未配送':'其他' }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="150">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">查看详情</el-button>
 
         </template>
@@ -55,102 +61,23 @@
     </el-col>
 
 
-    <el-dialog
-      title="编辑"
-      :visible.sync="dialogVisible"
-      width="70%"
-    >
-
-
-      <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="editForm.name" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="生产地">
-          <el-input v-model="editForm.site"></el-input>
-        </el-form-item>
-        <el-form-item label="价格">
-          <el-input v-model="editForm.price"></el-input>
-        </el-form-item>
-        <el-form-item label="年龄">
-          <el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
-        </el-form-item>
-
-
-        <el-form-item label="商品图片">
-          <img :src='editForm.imgScr' alt="">
-        </el-form-item>
-
-
-
-
-
-        <el-upload
-          class="upload-demo"
-          action="http://localhost:3006/upload"
-          :on-preview="handlePreview"
-          name="file"
-          :on-success="on_success"
-          :on-remove="handleRemove"
-          :file-list="fileList"
-          list-type="picture">
-          <el-button size="small" type="primary">点击上传</el-button>
-
-        </el-upload>
-
-
-
-      </el-form>
-
-
-
-
-
-      <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
-    </el-dialog>
 
 
 
 
 
 
-    <!--新增界面-->
-    <el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
-      <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="addForm.name" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-radio-group v-model="addForm.sex">
-            <el-radio class="radio" :label="1">男</el-radio>
-            <el-radio class="radio" :label="0">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="年龄">
-          <el-input-number v-model="addForm.age" :min="0" :max="200"></el-input-number>
-        </el-form-item>
-        <el-form-item label="生日">
-          <el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input type="textarea" v-model="addForm.addr"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click.native="addFormVisible = false">取消</el-button>
-        <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
-      </div>
-    </el-dialog>
+
+
 
   </section>
 </template>
 
 <script>
   import util from '../../common/js/util'
+
+  import moment from 'moment'
+
 
   import { getorderlist,login} from '../../api/api';
 
@@ -208,7 +135,16 @@
       }
     },
     methods: {
-      on_success(response, file, fileList){
+      //时间格式化
+      dateFormat: function (row, column) {
+        var date = row[column.property];
+        if (date == undefined) {
+          return "";
+        }
+        return moment(date).format("YYYY-MM-DD HH:mm:ss");
+      },
+
+      on_success(response, file, fileList) {
         // alert('chengoggn');
         console.log(file);
       },
@@ -233,30 +169,27 @@
       getUsers() {
 
 
-
-
         this.listLoading = true;
 
 
-
-
-        let obj ={
-          pageCount:this.filters.pageCount,
-          nub:this.filters.count,
-          keyword:this.filters.name
+        let obj = {
+          pageCount: this.filters.pageCount,
+          nub: this.filters.count,
+          keyword: this.filters.name
         };
-        if(obj.keyword){
-          obj.nub=1;
+        if (obj.keyword) {
+          obj.nub = 1;
         }
-        getorderlist(obj).then(data=>{
+        getorderlist(obj).then(data => {
           this.listLoading = false;
 
-          if(data.data.code==500){
+          if (data.data.code == 500) {
 
             this.$message.error('错误');
 
-          }else{
-            this.users =data.data.list;
+          } else {
+
+            this.users = data.data.list;
 
           }
         });
@@ -272,7 +205,7 @@
         }).then(() => {
           this.listLoading = true;
           //NProgress.start();
-          let para = { id: row.id };
+          let para = {id: row.id};
           //  	removeUser(para).then((res) => {
           // 	this.listLoading = false;
           // 	//NProgress.done();
@@ -288,7 +221,7 @@
       },
       //显示编辑界面
       handleEdit: function (index, row) {
-        this.dialogVisible=true;
+        this.dialogVisible = true;
         this.editFormVisible = true;
         this.editForm = Object.assign({}, row);
         console.log(this.editForm);
@@ -363,7 +296,7 @@
         }).then(() => {
           this.listLoading = true;
           //NProgress.start();
-          let para = { ids: ids };
+          let para = {ids: ids};
           batchRemoveUser(para).then((res) => {
             this.listLoading = false;
             //NProgress.done();
@@ -392,6 +325,7 @@
           this.$message.error('错误');
 
         }else{
+          // console.log(data.data.list);
           this.users =data.data.list;
 
           this.total =data.data.totalElement;

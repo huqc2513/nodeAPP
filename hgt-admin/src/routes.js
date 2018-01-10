@@ -10,13 +10,14 @@ import Page5 from './views/nav2/Page5.vue'
 import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 
+
 import order from './views/nav2/order'
 
 let routes = [
     {
         path: '/login',
         component: Login,
-        name: 'login',
+        name: '',
         hidden: true
     },
     {
@@ -28,23 +29,21 @@ let routes = [
     //{ path: '/main', component: Main },
     {
         path: '/',
-        meta: {
-          requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
-        },
         component: Home,
-        name: '商品管理',
+        // name: '/',
         iconCls: 'el-icon-message',//图标样式class
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
             { path: '/table', component: Table, name: '商品列表' },
             { path: '/form', component: Form, name: 'Form' },
-            { path: '/user', component: user, name: '列表' },
+            { path: '/order', component: order, name: '订单' },
+            { path: '/user', component: user, name: '用户' },
         ]
     },
     {
         path: '/',
         component: Home,
-        name: '订单管理',
+        name: '导航二',
         iconCls: 'fa fa-id-card-o',
         children: [
             { path: '/order', component: order, name: '订单' },
@@ -73,12 +72,8 @@ let routes = [
     {
         path: '*',
         hidden: true,
-        redirect: { path: '/'
-        }
+        redirect: { path: '/404' }
     }
 ];
-
-
-
 
 export default routes;

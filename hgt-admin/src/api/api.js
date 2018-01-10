@@ -9,6 +9,8 @@ var instance = axios.create({
 });
 
 
+
+
 import Vue from 'vue'
 
 
@@ -23,16 +25,45 @@ let  path = 'http://112.74.173.191:3006';
 if(process.env.NODE_ENV=='production'){
   path = 'http://112.74.173.191:3005';
 }else{
-  path = 'http://112.74.173.191:3006';
+  path = 'http://localhost:3006';
 }
 
-// path='http://localhost:3006';
+export function upload_edit_Path() {
+  let path = 'http://localhost:3006/uploadImage';
 
-// let path='http://localhost:3006';
+  if(process.env.NODE_ENV=='production'){
+    path = 'http://112.74.173.191:3005/uploadImage';
+  }
+  return path
+}
+
+export function uploadPath(){
+
+  let path = 'http://localhost:3006/upload';
+
+  if(process.env.NODE_ENV=='production'){
+    path = 'http://112.74.173.191:3005/upload';
+  }
+  return path
+}
+
+
+//修改商品
+export function getUserList(obj){
+  // path='http://localhost:3006';
+  return instance.post(path+'/getUserList',obj);
+}
 
 
 
+//修改商品
+export function update_product(obj){
+  // path='http://localhost:3006';
+  return instance.post(path+'/product/update',obj);
+}
 
+
+//添加商品
 export function add_product(obj){
   // path='http://localhost:3006';
   return instance.post(path+'/product/add',obj);

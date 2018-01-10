@@ -6,6 +6,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 
+
+import moment from 'moment';
+
+Vue.use(moment);
+
+
 //import './assets/theme/theme-green/index.css'
 
 import VueRouter from 'vue-router'
@@ -24,9 +30,11 @@ Vue.use(Vuex)
 
 //NProgress.configure({ showSpinner: false });
 
-const router = new VueRouter({
-  routes
-})
+const router = new VueRouter(
+    {
+      routes
+    }
+)
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
