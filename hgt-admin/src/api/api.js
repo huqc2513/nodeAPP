@@ -28,6 +28,27 @@ if(process.env.NODE_ENV=='production'){
   path = 'http://localhost:3006';
 }
 
+
+//分类
+export function getClassify() {
+  return instance.get(path+'/classify/getClass');
+}
+
+
+
+
+export function product_classify(obj) {
+
+  return instance.post(path+'/product/classify',obj);
+
+}
+
+export function admin_logout() {
+
+  return instance.get(path+'/admin/logout');
+
+}
+
 export function upload_edit_Path() {
   let path = 'http://localhost:3006/uploadImage';
 
@@ -55,6 +76,10 @@ export function getUserList(obj){
 }
 
 
+export function classify_meta () {
+  return  instance.get(path+'/classify/meta');
+
+};
 
 //修改商品
 export function update_product(obj){
@@ -134,4 +159,9 @@ axios.interceptors.response.use(data => {// 响应成功关闭loading
   alert('服务器繁忙');
 
   return Promise.reject(error)
-})
+});
+
+//
+// module.exports={
+//   getClassify
+// }

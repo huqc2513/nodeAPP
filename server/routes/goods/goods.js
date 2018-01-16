@@ -7,10 +7,7 @@ const sequelize = require('../../config/config.js');
 // var userModel= require('../lib/mysql.js');
 // 加密
 var md5 = require('md5');
-
-
-// const  User = require('../model/users')(sequelize,Sequelize);
-
+var validator = require('validator');
 
 const  Goods = require('../../model/goods')(sequelize,Sequelize);
 
@@ -18,11 +15,11 @@ const shopCart = require('../../model/product-cart')(sequelize,Sequelize);
 
 
 
-
 router.get('/product', async (ctx, next) => {
 
     // 判断是否登陆
     if (ctx.session.user) {
+
         let obj = {
             page: parseInt(ctx.query.page)-1,
             pageSize: ctx.query.pageSize,
@@ -70,11 +67,6 @@ router.get('/product', async (ctx, next) => {
             list: result
         };
 
-    }else{
-        ctx.body = {
-            code:-1,
-            status: '您没有登陆',
-        }
     }
 });
 
@@ -116,5 +108,21 @@ router.post('/shopcart/del', async (ctx, next) => {
     });
 });
 
+router.get('/goods/classif', async (ctx, next) => {
+
+
+    let sql1 = `SELECT *  from classify`;
+    let list1 = await  sequelize.query(sql1,{ type: sequelize.QueryTypes.SELECT});
+   // let list2 = await  sequelize.query(sql2,{ type: sequelize.QueryTypes.SELECT});
+
+    for(let i=0;i<list1.length;i++){
+        list2[i].cardId =  list1[i].id;//购物车id
+        list2[i].count = list1[i].count;//数量
+    }
+    ctx.body = {
+        code:1,
+        list: list2
+    }
+});
 
 module.exports = router;

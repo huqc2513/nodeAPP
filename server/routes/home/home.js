@@ -30,7 +30,7 @@ function query_code(ctx) {
     };
     return  true;
 }
-
+//获取轮播图
 router.get('/home/getbanner', async (ctx, next) => {
     let str = `SELECT * FROM advertising ORDER BY sort desc `;
 
@@ -48,8 +48,8 @@ router.get('/home/getbanner', async (ctx, next) => {
         }
     }
 
-});
-
+})
+//获取最新产品
 router.get('/home/getNewGoods', async (ctx, next) => {
     let id = parseInt(ctx.query.id);
     // validator.islnt(id);
@@ -88,6 +88,7 @@ router.get('/home/getNewGoods', async (ctx, next) => {
 
 });
 
+//获取热门产品
 router.get('/home/getHot', async (ctx, next) => {
     let id = ctx.query.id;
 
@@ -113,7 +114,7 @@ router.get('/home/getHot', async (ctx, next) => {
 
 
 });
-
+//订单添加
 router.post('/orderList/add', async (ctx, next) =>{
     let user_id= ctx.request.body.user_id;
     let product_id =  ctx.request.body.id;
@@ -161,7 +162,7 @@ router.post('/orderList/add', async (ctx, next) =>{
     }
 });
 
-// shopcat
+// 购物车列表
 router.get('/shopcat/list', async (ctx, next) =>{
     let id = ctx.query.id;
     if(id==''){
@@ -190,7 +191,7 @@ router.get('/shopcat/list', async (ctx, next) =>{
         query_code(ctx);
     }
 });
-
+//添加购物车
 router.post('/shopcat/add', async (ctx, next) =>{
 
     let count = ctx.request.body.count;
@@ -223,6 +224,7 @@ router.post('/shopcat/add', async (ctx, next) =>{
 
 });
 
+//移除购物车
 router.post('/shopcat/del', async (ctx, next) =>{
 
     let id = ctx.request.body.id;
@@ -249,6 +251,7 @@ router.post('/shopcat/del', async (ctx, next) =>{
 
 });
 
+//创建订单
 router.post('/create_order', async (ctx, next) =>{
 
     let totalPrice = ctx.request.body.totalPrice;

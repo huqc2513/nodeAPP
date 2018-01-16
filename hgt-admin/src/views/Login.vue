@@ -17,6 +17,7 @@
 
 <script>
   import { requestLogin,admin_login } from '../api/api';
+
   //import NProgress from 'nprogress'
 
   export default {
@@ -46,20 +47,17 @@
       },
       handleSubmit2(ev) {
         var _this = this;
-         // this.ruleForm2.forEach(function (i) {
-         //   if(i==''){
-         //      alert('账号密码为必填');
-         //     return
-         //   }
-         // })
 
         admin_login(this.ruleForm2).then(data=>{
           console.log(data);
 
           if(data.data.code==200){
            alert(data.data.msg);
-            localStorage.setItem('admin',JSON.stringify(data.data.info))
-             this.$router.push({ path: '/table'});
+
+           sessionStorage.setItem('admin',JSON.stringify(data.data.info));
+             _this.$router.push({ path: '/table'});
+
+
           }else{
              alert(data.data.msg);
           }

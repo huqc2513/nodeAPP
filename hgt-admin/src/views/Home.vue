@@ -10,10 +10,11 @@
 					<!--<i class="fa fa-align-justify"></i>-->
 				</div>
 			</el-col>
-			<el-col :span="4" class="userinfo">
+
+      <el-col :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner">
-            <!--<img :src="this.sysUserAvatar" /> {{sysUserName}}-->
+            <img :src="this.sysUserAvatar" /> {{sysUserName}}
 
           </span>
 					<el-dropdown-menu slot="dropdown">
@@ -23,6 +24,7 @@
 					</el-dropdown-menu>
 				</el-dropdown>
 			</el-col>
+
 		</el-col>
 
 
@@ -36,10 +38,18 @@
                 <i class="el-icon-location"></i>
                 <span slot="title">商品管理</span>
               </template>
+
+
+
+
               <el-menu-item-group>
 
                 <el-menu-item index="/table">商品列表</el-menu-item>
 
+              </el-menu-item-group>
+
+              <el-menu-item-group>
+                <el-menu-item index="/product/classify">商品分类</el-menu-item>
               </el-menu-item-group>
 
             </el-submenu>
@@ -71,7 +81,6 @@
 
             </el-submenu>
 
-
           </el-menu>
 
 
@@ -102,6 +111,8 @@
 </template>
 
 <script>
+  import {admin_logout} from  '../../src/api/api'
+
 	export default {
 		data() {
 			return {
@@ -109,7 +120,7 @@
 				sysName:'VUEADMIN',
 				collapsed:false,
 				sysUserName: '',
-				sysUserAvatar: '',
+				sysUserAvatar:require('../../static/img/avatar.jpg'),
 				form: {
 					name: '',
 					region: '',
@@ -146,8 +157,18 @@
 				this.$confirm('确认退出吗?', '提示', {
 					//type: 'warning'
 				}).then(() => {
-					sessionStorage.removeItem('user');
-					_this.$router.push('/login');
+
+					sessionStorage.removeItem('admin');
+
+
+          admin_logout().then(data=>{
+            if(data.data.code==200){
+              alert(data.data.msg);
+            }
+            _this.$router.push('/login');
+          })
+
+
 				}).catch(() => {
 
 				});
@@ -168,7 +189,7 @@
 			if (user) {
 				user = JSON.parse(user);
 				this.sysUserName = user.name || '';
-				this.sysUserAvatar = user.avatar || '';
+				// this.sysUserAvatar = user.avatar || '';
 			}
 
 		}

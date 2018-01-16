@@ -46,28 +46,123 @@ var storage = multer.diskStorage({
     }
 })
 //加载配置
-var upload = multer({ storage: storage });
+var upload = multer(
+    {
+        storage: storage,
+        limits:5,
+    }
+    );
 
 function resolve(dir) {
     return pathlib.join(__dirname, '../../', dir)
 }
 
+
+
+function insertImg(ctx,id){
+    console.log(ctx.request.file);
+    if(ctx.request.file){
+
+        let len = ctx.request.file;
+        let obj={
+            name:'',
+            type:'',
+            originalname:'',
+            path:'',
+            size:''
+        };
+       let bl;
+        // for(let i=0;i<len.length;i++){
+         //console.log(len[i]);
+
+            let name = len.filename;
+            obj.name = len.filename;
+            obj.type= len.mimetype;
+            obj.originalname= len.originalname;
+            obj.path =ctx.req.origin+ '/images/'+name;
+         //   obj.size = len[i].file.size;
+             bl =` '${obj.name}','${obj.path }','${id}',NOW(),'90876','${obj.type}'`;
+        // }
+
+        let sql= `insert into images (images_name,images_path,goods,created_time,images_size,file_type) values (${bl} )`;
+
+        return sql
+    }else{
+      return ''
+    }
+    // let type = ctx.req.file.mimetype;
+    // let originalname= ctx.req.file.originalname;
+    // let d = new Date();
+    // // let time = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
+    // let name = ctx.req.file.filename;
+    //
+    // let path =ctx.origin+ '/images/'+name;
+    // let size = ctx.req.file.size;
+
+
+}
+
+function uploadImage(ctx){
+   console.log(ctx.req.file);
+    if(ctx.req.file){
+        let len = ctx.req.file;
+        let obj={
+            name:'',
+            type:'',
+            originalname:'',
+            path:'',
+            size:''
+        };
+        let bl;
+
+        let name = len.filename;
+        obj.name = len.filename;
+        obj.type= len.mimetype;
+        obj.originalname= len.originalname;
+        obj.path =ctx.request.origin+ '/images/'+name;
+        //   obj.size = len[i].file.size;
+        bl =` '${obj.name}','${obj.path }',NOW(),'90876','${obj.type}'`;
+        // }
+
+        let sql= `insert into images (images_name,images_path,created_time,images_size,file_type) values (${bl} )`;
+
+        return sql
+    }else{
+        return ''
+    }
+    // let type = ctx.req.file.mimetype;
+    // let originalname= ctx.req.file.originalname;
+    // let d = new Date();
+    // // let time = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
+    // let name = ctx.req.file.filename;
+    //
+    // let path =ctx.origin+ '/images/'+name;
+    // let size = ctx.req.file.size;
+
+
+}
+
+//上传
 router.post('/upload', upload.single('file'), async (ctx, next) => {
 
+    //console.log(ctx.req.body)
+
     let goods_id=ctx.req.body.goods_id;
+
+
     let is_cover =ctx.req.body.is_cover;//是否为封面
     let title=ctx.req.body.title;
 
-    // console.log(ctx.req.file.originalname);
+    // console.log(ctx.req.file);
     let str =ctx.req.file.destination;
     let type = ctx.req.file.mimetype;
     let originalname= ctx.req.file.originalname;
     let d = new Date();
-    let time = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
+    // let time = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
     let name = ctx.req.file.filename;
     let path =ctx.origin+ '/images/'+name;
     let size = ctx.req.file.size;
-    console.log(ctx.req.file);
+    //console.log(ctx.req.file);
     if(!goods_id){
         ctx.body = {
             code:500,
@@ -82,7 +177,7 @@ router.post('/upload', upload.single('file'), async (ctx, next) => {
         };
         return
     }
-    let bl =` '${originalname}','${path}','${goods_id}','${is_cover}','${time}',${size},'${type}'`;
+    let bl =` '${originalname}','${path}','${goods_id}','${is_cover}',now(),${size},'${type}'`;
     let sql= `insert into images (images_name,images_path,goods,is_cover,created_time,images_size,file_type) values (${bl} )`;
 
     let result = '';
@@ -106,67 +201,152 @@ router.post('/upload', upload.single('file'), async (ctx, next) => {
     }
 
 });
+//更新
+router.post('/uploadImage',upload.single('file'),async (ctx,next)=>{
+
+    let sql = uploadImage(ctx);
+
+    let json={
+        code:200,
+        result:'',
+        msg:'上传成功'
+    }
+    try {
+        if(sql) {
+            json.result = await  sequelize.query(sql, {type: sequelize.QueryTypes.INSERT});
+        }
+        json.result= json.result[0];
+        ctx.body=json;
+         return
+    }catch (err){
+        ctx.status=500
+    }
+    ctx.body={
+        code:500,
+        msg:'失败'
+    }
 
 
-router.post('/product/add',upload.single('file'),async (ctx,next)=>{
+});
+
+//添加产品 ，更新图片
+router.post('/product/add',async (ctx,next)=>{
 
     let obj={
         name:'',
         price:'',
         site:'',
-        src:'',
         grading:'',
-        category:'',
-        salesVolume:'',
+        category:[],
         sort:'',
+        imagesList:[],
     };
+   console.log(ctx.request.body);
 
-    obj.name =  ctx.request.body.name;
-    obj.price =  ctx.request.body.price;
-    obj.site =  ctx.request.body.site;
-    obj.src =  ctx.request.body.src;
-    obj.salesVolume =  ctx.request.body.salesVolume;
-    obj.grading =  ctx.request.body.grading;
-    obj.category =  ctx.request.body.category;
-    obj.sort =  ctx.request.body.sort;
+    if(ctx.request.body){
 
+        obj.name =  ctx.request.body.name;
+        obj.price =  ctx.request.body.price;
+        obj.site =  ctx.request.body.site;
+        obj.grading =  ctx.request.body.grading;
+        obj.category =  ctx.request.body.category;
+        obj.sort =  ctx.request.body.sort;
+        obj.imagesList=ctx.request.body.imagesList;
 
-    for(let item in obj){
-        if(obj[item] ==undefined||obj[item]==''){
-            obj[item]=null;
-        }else{
-            obj[item]=`'${obj[item]}'`
+        if(ctx.request.body.imagesList.length==0){
+            ctx.body ={
+                code:500,
+                msg:'图片最少需要上传一张！'
+            };
+            return
         }
-    }
-    console.log(ctx.request.file);
+        for(let item in obj){
+            if(obj[item] ==undefined||obj[item]==''){
+                obj[item]=null;
+            }else{
+                obj[item]=`'${obj[item]}'`
+            }
+        }
+       if(obj.category.substring(1,obj.category.length-1).indexOf(',')==-1){
+           obj.category= obj.category.substring(1,obj.category.length-1)
+       }else{
+           obj.category= obj.category.charAt( obj.category.length-2);
+       }
+        if(!obj.name||!obj.price){
+            ctx.body ={
+                code:500,
+                msg:'name，price，src为必填'
+            };
+        }
 
-    if(!obj.name||!obj.price||!obj.src){
-        ctx.body ={
-            code:500,
-            msg:'name，price，src为必填'
-        };
-    }
-    let str = `${obj.name},${obj.price},${obj.site},${obj.src},${obj.salesVolume},NOW(),${obj.grading},${obj.category},${obj.sort}`;
+        let str = `${obj.name},${obj.price},${obj.site},NOW(),${obj.grading},${obj.category},${obj.sort}`;
 
-    let sql1 =`insert into goods (name,price,site,imgScr,salesVolume,created_at,grading,category,sort)
+        let sql1 =`insert into goods (name,price,site,created_at,grading,category,sort)
         values( ${str} )
     `;
-    let res = {
-       code:200,
-        msg:''
-    };
-    try{
-        res.msg =  await  sequelize.query(sql1, {type: sequelize.QueryTypes.INSERT});
 
-        console.log(msg);
 
-    }catch (err){
-        console.log(err);
+        let res = {
+            code:200,
+            msg:''
+        };
+        let id =0;
+        try{
+            res.msg =  await  sequelize.query(sql1, {type: sequelize.QueryTypes.INSERT});
+
+            if(res.msg){
+                id  =res.msg[0];
+            }
+
+            let updatasql='';
+            let len =ctx.request.body.imagesList;
+            let str = ctx.request.body.imagesList.join(',');
+            for(let i=0;i<len.length;i++){
+                updatasql+=` WHEN ${len[i]} THEN ${id} `
+            }
+            let sql2 = `
+                    UPDATE images 
+                        SET goods = CASE image_id 
+                            ${updatasql}
+                        END
+                    WHERE image_id IN (${str})
+            `;
+
+            if(sql2){
+                res.msg =  await  sequelize.query(sql2, {type: sequelize.QueryTypes.UPDATE});
+               if( res.msg[1]>0){
+                   ctx.body = {
+                       code:200,
+                       msg:'新增成功'
+                   }
+               }
+            }
+
+
+
+        }catch (err){
+            ctx.status=500;
+            ctx.body = {
+                msg:'404'
+            };
+            console.log(err);
+        }
+
+
+    }else{
+        ctx.body={
+            msg:'未传参数',
+            code:500
+        }
     }
-    if(res.msg[0]==1){
-        res.msg='添加成功';
-    }
-    ctx.body = res;
+
+
+
+
+
+
+
+
 });
 
 

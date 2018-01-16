@@ -10,9 +10,24 @@
 				<el-form-item>
 					<el-button type="primary" v-on:click="getUsers">查询</el-button>
 				</el-form-item>
+
 				<el-form-item>
 					<el-button type="primary" @click="handleAdd">新增</el-button>
 				</el-form-item>
+
+        <el-form-item>
+          <!--<el-button type="primary" @click="handleAdd">新增</el-button>-->
+
+          <el-cascader
+            :options="options"
+            :show-all-levels="false"
+            v-model="editForm.filters"
+            @change="changeType"
+            :clearable="true"
+          ></el-cascader>
+
+        </el-form-item>
+
 			</el-form>
 		</el-col>
 
@@ -28,6 +43,10 @@
 			</el-table-column>
 			<el-table-column prop="grading" label="段位"   >
 			</el-table-column>
+
+      <el-table-column prop="type" label="所属分类"   >
+      </el-table-column>
+
 			<el-table-column prop="price" label="价格"  sortable>
 			</el-table-column>
 			<el-table-column prop="created_at" label="创建时间" sortable>
@@ -63,9 +82,24 @@
       <el-form-item label="姓名" prop="name">
       <el-input v-model="editForm.name" auto-complete="off"></el-input>
       </el-form-item>
+
       <el-form-item label="生产地">
         <el-input v-model="editForm.site"></el-input>
       </el-form-item>
+
+        <el-form-item label="所属分类" >
+
+          <el-cascader
+            :options="options"
+            :show-all-levels="false"
+            v-model="editForm.category"
+            @change="changEditForm"
+          ></el-cascader>
+
+        </el-form-item>
+
+
+
         <el-form-item label="价格">
           <el-input v-model="editForm.price"></el-input>
         </el-form-item>
@@ -159,21 +193,34 @@
       <el-form :model="addForm"   label-width="80px" :rules="addFormRules" ref="addForm">
 
         <div>
-          <el-form-item label="产品名称"  prop="name">
+          <el-form-item label="产品名称"  >
             <el-input v-model="addForm.name" auto-complete="off"></el-input>
           </el-form-item>
 
-          <el-form-item label="所属分类" prop="name">
-            <el-input v-model="addForm.category" auto-complete="off"></el-input>
+          <el-form-item label="所属分类" >
+            <!--<el-input v-model="addForm.category" auto-complete="off"></el-input>-->
+
+            <el-cascader
+            :options="options"
+            :show-all-levels="false"
+            v-model="addForm.category"
+            @change="change"
+          ></el-cascader>
+
+
           </el-form-item>
 
           <el-form-item label="生产地址" prop="name">
             <el-input v-model="addForm.site" auto-complete="off"></el-input>
           </el-form-item>
 
+
+
           <el-form-item label="段位" prop="name">
             <el-input v-model="addForm.grading" auto-complete="off"></el-input>
           </el-form-item>
+
+
 
           <el-form-item label="价格" prop="name">
             <el-input v-model="addForm.price" auto-complete="off"></el-input>
@@ -225,16 +272,20 @@
 
 
 
-	import { getGoodsList,uploadPath,upload_edit_Path,login,delGoods,del_image,add_product,update_product} from '../../api/api';
+	import { getGoodsList,uploadPath,upload_edit_Path,login,delGoods,del_image,add_product,update_product,getClassify,classify_meta} from '../../api/api';
+
+
+
 
 
  let upload_add =upload_edit_Path();
  let upload_edit= uploadPath();
 
 	export default {
-		data() {
+		data(){
 
 			return {
+        classify:[],
         uploadAdd:upload_add,
         upload:upload_edit,
         Vueself:'',
@@ -244,6 +295,7 @@
 					name: '',
           count:1,
           pageCount:6,
+          type:[],
 				},
 				users: [],
 				total: 0,
@@ -281,25 +333,30 @@
           price:'',
           site:'',
           grading:'',
-          category:'',
+          category:[],//选择的分类
           imagesList:[],
 				},
-        files: []
+        files: [],
+        options:[],//分类
+        optionsAddFrom:[],
 			}
 		},
 		methods: {
+      changeType(data){
+         this.getUsers();
+      },
+      changEditForm(data){//编辑产品分类
+          console.log(data);
+      },
+      change(data){//新增产品分类
+        console.log(data);
+      },
 		  remove_submit(){
-
         this.addFormVisible = false;
         this.addForm.imagesList=[];
       },
       beforeremove2(file, fileList){
-        // for(let i in fileList){
-        //   if(fileList[i]==file){
-        //     this.addForm.imagesList.splice(i,1);
-        //     console.log(this.addForm.imagesList);
-        //   }
-        // }
+
       },
       beforeUpload2(file){
           console.log(file);
@@ -308,11 +365,24 @@
       editProduct(e){
 
         this.submitUpload();
+
+        //分类id
+        let data=e.category;
+        data = data.toString();
+        if(data.substring(1,data.length-1).indexOf(',')==-1){
+          data= data.substring(1,data.length-1)
+        }else{
+          data= data.charAt( data.length-1);
+        }
+
+
+
         let obj= {
           id:e.id,
           grading:e.grading,
           name:e.name,
           price:e.price,
+          category:data,//分类id
           site:e.site,
           images:e.images
         };
@@ -322,7 +392,7 @@
             if(data.data.code=200){
               this.$message(data.data.msg);
             }
-            this.dialogVisible = false
+            this.dialogVisible = false;
 
             this.init();
 
@@ -369,7 +439,7 @@
 
       //console.log(this.fileList1);
 
-        console.log(file.response.result);
+      //  console.log(file.response.result);
         if(file.response.code==200){
 
           this.addForm.imagesList.push(file.response.result);
@@ -412,7 +482,6 @@
       handlePreview(file) {
         // console.log(file);
       },
-
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${ file.name }？`);
       },
@@ -427,14 +496,20 @@
       //获取用户列表
       getUsers() {
 
-
         this.listLoading = true;
+        let data =this.editForm.filters.toString();
+        if(data.length==1){
+          data=data;
+        }else{
+          data=data.substring(data.lastIndexOf(',')+1,data.length)
+        }
 
-
+        console.log(data);
         let obj = {
           pageCount: this.filters.pageCount,
           nub: this.filters.count,
-          keyword: this.filters.name
+          keyword: this.filters.name,
+          type:data
         };
         if (obj.keyword) {
           obj.nub = 1;
@@ -500,11 +575,26 @@
       },
       //显示编辑界面
       handleEdit: function (index, row) {
+        let sort =[];
+      if(this.classify){
+        let res =this.loop_options(this.classify,row.category);
+          res.forEach(i=>{
+              sort.push(i.classify_id);
+          })
+      }
+
+       let classify_id = parseInt(row.category);
+        if(classify_id){
+          row.category=sort.reverse();
+
+      }
+
         this.dialogVisible = true;
         this.editFormVisible = true;
         this.editForm = Object.assign({}, row);
-        // console.log(this.editForm);
-        // console.log(this.editForm);
+
+         // console.log(this.editForm);
+
       },
       //显示新增界面
       handleAdd: function () {
@@ -519,7 +609,10 @@
               this.editLoading = true;
               //NProgress.start();
               let para = Object.assign({}, this.editForm);
+
               para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
+
+
               editUser(para).then((res) => {
                 this.editLoading = false;
                 //NProgress.done();
@@ -528,7 +621,7 @@
                   type: 'success'
                 });
                 this.$refs['editForm'].resetFields();
-                //	this.editFormVisible = false;
+
                 this.getUsers();
               });
             });
@@ -548,10 +641,20 @@
                    this.addFormVisible = false;
 
                    this.init();
+
+                   this.addForm= {
+                         name: '',
+                         price:'',
+                         site:'',
+                         grading:'',
+                         category:[], //选择的分类
+                         imagesList:[],
+                       };
+
+                   this.$refs.upload2.clearFiles();//清空列表
+
               }
             })
-
-
       },
       selsChange: function (sels) {
         this.sels = sels;
@@ -587,10 +690,22 @@
       },
       init(){
 
-        let obj ={
-          pageCount:6,
-          nub:1,
+        // let data =this.editForm.filters.toString();
+        // if(data.length==1){
+        //   data=data;
+        // }else if(data.length>=1){
+        //   data=data.substring(data.lastIndexOf(',')+1,data.length)
+        // }else{
+        //   data='';
+        // }
+
+        let obj = {
+          pageCount: this.filters.pageCount,
+          nub: this.filters.count,
+          keyword:'',
+          type:''
         };
+
 
         getGoodsList(obj).then(data=>{
 
@@ -602,16 +717,14 @@
 
           }else{
             this.users =data.data.list;
-
             this.total =data.data.totalElement;
-
           }
         });
       },
       inputFile: function (newFile, oldFile) {
         if (newFile && oldFile && !newFile.active && oldFile.active) {
           // 获得相应数据
-          console.log('response', newFile.response)
+         // console.log('response', newFile.response);
           if (newFile.xhr) {
             //  获得响应状态码
             console.log('status', newFile.xhr.status)
@@ -632,11 +745,47 @@
         if (URL && URL.createObjectURL) {
           newFile.blob = URL.createObjectURL(newFile.file)
         }
+      },
+      loop_options(arr,pid){
+
+        var temp = [];
+        var forFn = function(arr, pid){
+            for (var i = 0; i < arr.length; i++) {
+            var item = arr[i];
+            if (item.classify_id == pid) {
+              temp.push(item);
+
+              forFn(arr,item.parent_id);
+            }
+          }
+        };
+
+        forFn(arr, pid);
+        return temp;
       }
+
     },
 		created() {
         this.init();
         this.Vueself = this;
+        let that =this;
+        const arrt=async function(){
+          let arr= await classify_meta();
+
+           that.classify =  arr.data.classify;
+
+        };
+        arrt();
+
+
+        //获取分类
+        getClassify().then(data=>{
+
+          this.options=data.data.classify;
+
+
+        });
+
 		}
 
   }
