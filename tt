@@ -1,0 +1,25 @@
+function t(a,b){
+ 
+    let myMap = new Map();
+
+    function fn(key){
+    
+        let str = `{'${key}':${myMap.get(key)}}`
+ 
+        return str
+    }
+    if(b instanceof Array && a instanceof Array){
+        for(var i = 0, len = a.length; i < len; i++){
+                myMap.set(a[i], b[i]);
+        }
+    }else{
+        return false
+    }
+
+    return  fn.bind(this);
+}
+ var a =["a","1","b","2"]
+ var b =["c","3","d","4","e",'sss']
+
+ let fn=t(a,b);
+ console.log(fn('a'))
