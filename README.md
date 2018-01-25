@@ -22,7 +22,6 @@ nodeApp
 添加购物车并结算<br>
 
 
-==
 
 项目运行<br>
 
@@ -38,7 +37,7 @@ npm install <br>
 ><br>
 >npm install <br> 
 npm run dev<br> 
->》 
+>
 
 app前端在线预览  http://112.74.173.191/dist/index.html
 
